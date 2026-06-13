@@ -1,0 +1,4 @@
+SUPABASE_URL=https://jzkcudppqffoqwjtishx.supabase.co
+SUPABASE_PUBLISHABLE_KEY=sb_publishable_frzfW708ezWcrclIiAINOw_CrLZ7Mfk
+SESSION_SECRET=b6c53f397b1b4660e9e489e918b50a921fd6a7b62665dc0100015cf5d4c83c05
+PORT=3000

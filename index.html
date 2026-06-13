@@ -1,0 +1,1671 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syed Aftab Gilani</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-soft: #f1f5f9;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: rgba(255, 255, 255, 0.08);
+            --blue: #2563eb;
+            --indigo: #1e40af;
+            --teal: #0f766e;
+            --purple: #7c3aed;
+            --shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+            --radius: 28px;
+            --radius-sm: 18px;
+            --spacing: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #eef2f7 0%, #f8fbff 100%);
+            color: var(--text);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            padding: 24px;
+        }
+
+        .page-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .controls-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            align-items: stretch;
+            margin-bottom: 24px;
+        }
+
+        .control-panel {
+            display: grid;
+            grid-template-columns: minmax(320px, 2fr) minmax(220px, 1fr) minmax(180px, 0.9fr) auto;
+            gap: 16px;
+            align-items: end;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 24px;
+            padding: 18px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .control-group input,
+        .control-group select {
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            border-radius: 14px;
+            background: #f8fafc;
+            color: var(--text);
+            padding: 14px 16px;
+            font-size: 14px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .control-group input:focus,
+        .control-group select:focus {
+            outline: none;
+            border-color: rgba(37, 99, 235, 0.45);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            align-items: flex-end;
+            width: 44px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 16px;
+            padding: 14px 22px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--indigo), var(--blue));
+            color: white;
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.18);
+        }
+
+        .admin-login-link {
+            display: inline-grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--indigo), var(--blue));
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 12px 26px rgba(37, 99, 235, 0.18);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .admin-login-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+        }
+
+        .admin-login-link svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.4;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--indigo);
+            border: 1px solid rgba(37, 99, 235, 0.12);
+        }
+
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            padding: 40px;
+            background: linear-gradient(180deg, #1e3a8a 0%, #112d5c 100%);
+            color: #f8fafc;
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.12), transparent 36%),
+                        radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.16), transparent 30%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            gap: 34px;
+            align-items: flex-start;
+        }
+
+        .hero-inner .intro-actions {
+            grid-column: 1 / -1;
+            margin-top: 24px;
+            flex-direction: row;
+        }
+
+        .hero-inner .intro-actions .btn {
+            flex: 1;
+        }
+
+        .hero-photo {
+            width: 280px;
+            height: 370px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(15, 23, 42, 0.18));
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+            overflow: hidden;
+        }
+
+        .hero-photo img {
+            width: calc(100% - 18px);
+            height: calc(100% - 18px);
+            object-fit: cover;
+            border-radius: 22px;
+            border: 4px solid rgba(255, 255, 255, 0.28);
+        }
+
+        .hero-copy {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.78);
+            margin-bottom: 18px;
+        }
+
+        .eyebrow::before {
+            content: '';
+            width: 28px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-copy h1 {
+            font-size: clamp(2.6rem, 2.4vw, 3.4rem);
+            line-height: 1.02;
+            margin-bottom: 12px;
+            margin-left: 20px;
+        }
+
+        .hero-copy p.title {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            margin-left: 20px;
+        }
+
+        .hero-copy p.lead {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .profile-summary {
+            max-width: 860px;
+            display: grid;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 22px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            margin-left: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-kpis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 22px;
+            padding: 18px 20px;
+            backdrop-filter: blur(12px);
+            color: white;
+            min-height: 110px;
+        }
+
+        .kpi-card strong {
+            display: block;
+            font-size: 1.95rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .kpi-card span {
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.88rem;
+        }
+
+        .dashboard-section,
+        .timeline-section,
+        .gallery-section {
+            margin-bottom: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 1.3rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .dashboard-card {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            padding: 24px;
+            box-shadow: 0 18px 30px rgba(15, 23, 42, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 24px 40px rgba(15, 23, 42, 0.1);
+        }
+
+        .dashboard-card .dash-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--indigo);
+        }
+
+        .dashboard-card .dash-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        .timeline-wrapper {
+            display: grid;
+            gap: 20px;
+        }
+
+        .timeline-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 24px;
+            align-items: flex-start;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 31px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(37, 99, 235, 0.16), rgba(15, 23, 42, 0.08));
+        }
+
+        .timeline-marker {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .marker-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--blue);
+            box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.12);
+            margin-top: 4px;
+        }
+
+        .timeline-card {
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            padding: 26px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+        }
+
+        .training-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .badge-primary {
+            background: rgba(37, 99, 235, 0.12);
+            color: var(--indigo);
+        }
+
+        .badge-achievement {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
+            color: #b45309;
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            animation: pulse-achievement 2s infinite;
+        }
+
+        @keyframes pulse-achievement {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .achievement-highlight {
+            border-left: 4px solid #fbbf24;
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.06) 0%, transparent 80%);
+        }
+
+        .training-top h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .provider {
+            color: #d97706;
+            font-size: 0.96rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .category-heading {
+            grid-column: 1 / -1;
+            padding: 8px 16px;
+            border-radius: 18px;
+            background: rgba(37, 99, 235, 0.1);
+            margin: 16px 0 8px;
+        }
+
+        .category-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--indigo);
+        }
+
+        .training-date {
+            font-family: Inter, sans-serif;
+            color: var(--indigo);
+            font-size: 0.95rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .training-description {
+            color: var(--text);
+            font-size: 0.96rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .training-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .meta-item {
+            background: var(--surface-soft);
+            padding: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            color: var(--text-muted);
+        }
+
+        .meta-item span {
+            display: block;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .certificate-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.18);
+            color: var(--indigo);
+            border-radius: 18px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .gallery-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            min-height: 180px;
+            background: var(--surface);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 26px 50px rgba(15, 23, 42, 0.12);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .gallery-pill {
+            position: absolute;
+            left: 16px;
+            bottom: 16px;
+            background: rgba(15, 23, 42, 0.78);
+            color: white;
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 0.8rem;
+        }
+
+        .no-results {
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            background: var(--surface);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 22px;
+        }
+
+        .no-results strong {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .toolbar-footer {
+            color: var(--text-muted);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-line {
+            background: linear-gradient(90deg, #f0f4f8 25%, #e2e8f0 50%, #f0f4f8 75%);
+            background-size: 200% 100%;
+            border-radius: 8px;
+            animation: shimmer 1.6s infinite linear;
+            margin-bottom: 12px;
+        }
+
+        .skeleton-image {
+            background: linear-gradient(90deg, #f0f4f8 25%, #e2e8f0 50%, #f0f4f8 75%);
+            background-size: 200% 100%;
+            border-radius: 24px;
+            min-height: 180px;
+            animation: shimmer 1.6s infinite linear;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .load-more-spinner {
+            display: flex;
+            justify-content: center;
+            padding: 28px;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid rgba(37, 99, 235, 0.15);
+            border-top-color: var(--blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .watermark {
+            display: none;
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* align intro actions and match profile-summary width */
+        .intro-actions {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        .intro-actions .btn {
+            flex: 0 0 auto;
+            min-width: auto;
+            height: auto;
+            padding: 14px 18px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .quote-box {
+            width: 100%;
+            max-width: 860px;
+            margin-left: 20px;
+            padding: 20px 24px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+            color: rgba(243, 223, 46, 0.952);
+            font-style: italic;
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+            line-height: 1.6;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quote-box::before {
+            content: '“';
+            position: absolute;
+            top: 10px;
+            left: 25px;
+            font-size: 2.2rem;
+            color: rgba(243, 223, 46, 0.952);
+            line-height: 1;
+        }
+
+        .quote-box::after {
+            content: '”';
+            position: absolute;
+            bottom: 10px;
+            right: 25px;
+            font-size: 2.2rem;
+            color: rgba(243, 223, 46, 0.952);
+            line-height: 1;
+        }
+
+        .quote-box p {
+            margin: 0;
+            font-size: 0.98rem;
+            color: rgba(243, 223, 46, 0.952);
+            text-align: justify;
+            padding: 0 8px;
+        }
+
+        .quote-box small {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.82rem;
+            opacity: 0.78;
+            text-align: right;
+        }
+
+        .quote-box-btn {
+            width: 100%;
+            height: auto;
+            padding: 14px 18px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .education-return {
+            display: flex;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .profile-collapse-btn {
+            display: inline-grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--indigo), var(--blue));
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 12px 26px rgba(37, 99, 235, 0.18);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .profile-collapse-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+        }
+
+        .profile-collapse-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.4;
+        }
+
+        .profile-details {
+            margin-top: 22px;
+            background: rgba(255, 255, 255, 0.96);
+            color: var(--text);
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            box-shadow: 0 18px 42px rgba(15, 23, 42, 0.18);
+        }
+
+        .profile-details .section-header {
+            margin-bottom: 16px;
+        }
+
+        .education-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .education-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.04);
+        }
+
+        .education-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .education-card h4 {
+            margin-bottom: 12px;
+            color: var(--indigo);
+            font-size: 1.05rem;
+        }
+
+        .education-card .edu-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .education-card .gallery-card {
+            min-height: 220px;
+            height: 220px;
+            border-radius: 12px;
+            box-shadow: none;
+        }
+
+        .education-card .gallery-card img {
+            height: 100%;
+        }
+
+        .edu-caption {
+            font-size: 0.96rem;
+            color: #d97706;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            margin-bottom: 6px;
+        }
+
+        .edu-year {
+            font-family: Inter, sans-serif;
+            color: var(--indigo);
+            font-size: 0.95rem;
+            font-weight: 700;
+            white-space: nowrap;
+            margin-bottom: 8px;
+        }
+
+        .watermark span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 5rem;
+            color: rgba(15, 23, 42, 0.06);
+            letter-spacing: 0.5em;
+            white-space: nowrap;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .controls-section,
+            .button-group,
+            .btn,
+            .toolbar-footer,
+            .gallery-card:hover,
+            .dashboard-card:hover {
+                display: none !important;
+                box-shadow: none !important;
+            }
+
+            .hero-section,
+            .dashboard-card,
+            .timeline-card,
+            .gallery-card,
+            .control-panel {
+                border-color: rgba(0, 0, 0, 0.08);
+                box-shadow: none !important;
+            }
+
+            .watermark {
+                display: block;
+            }
+
+            .page-wrapper {
+                max-width: none;
+                margin: 0;
+            }
+
+            .timeline-item,
+            .gallery-grid,
+            .gallery-card {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 18mm;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .control-panel {
+                grid-template-columns: minmax(260px, 1.5fr) minmax(180px, 1fr) auto;
+            }
+
+            .control-group:first-child {
+                grid-column: 1 / -1;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+
+            .hero-photo {
+                margin: 0 auto;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .education-list {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                grid-template-columns: 40px 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            body {
+                padding: 16px;
+            }
+
+            .controls-section {
+                grid-template-columns: 1fr;
+            }
+
+            .control-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                justify-content: flex-end;
+                width: 100%;
+            }
+
+            .dashboard-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-section {
+                padding: 24px;
+            }
+
+            .hero-copy h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero-photo {
+                width: 100%;
+                max-width: 240px;
+                height: 260px;
+            }
+
+            .profile-summary,
+            .profile-details {
+                padding: 16px;
+                border-radius: 18px;
+            }
+
+            .education-card .gallery-card {
+                min-height: 180px;
+                height: 180px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item::before {
+                left: 18px;
+            }
+
+            .training-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .training-date {
+                white-space: normal;
+            }
+        }
+
+        /* ── Global overflow guards ── */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn {
+            white-space: normal;
+            text-align: center;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .training-top h3,
+        .training-description,
+        .dash-label,
+        .provider,
+        .badge,
+        .hero-copy h1,
+        .hero-copy p {
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+
+        /* ── 2-column gallery between mobile and tablet ── */
+        @media (min-width: 481px) and (max-width: 760px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ── Extra-small devices (<480px) ── */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .hero-section {
+                padding: 16px;
+                border-radius: 18px;
+            }
+
+            .hero-copy h1 {
+                font-size: 1.8rem;
+            }
+
+            .kpi-card {
+                min-height: auto;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-card {
+                padding: 16px 14px;
+            }
+
+            .badge {
+                font-size: 0.7rem;
+                padding: 5px 9px;
+            }
+
+            .training-top h3 {
+                font-size: 1rem;
+            }
+
+            .button-group .btn {
+                padding: 10px 14px;
+                font-size: 0.88rem;
+            }
+
+            .controls-section {
+                gap: 10px;
+            }
+
+            .control-panel {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="controls-section">
+            <div class="control-panel">
+                <div class="control-group">
+                    <label for="searchInput">Search training record</label>
+                    <input id="searchInput" type="text" placeholder="Search title, category, provider...">
+                </div>
+                <div class="control-group">
+                    <label for="categoryFilter">Category filter</label>
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="typeFilter">Type filter</label>
+                    <select id="typeFilter">
+                        <option value="">All Types</option>
+                        <option value="Seminar">Lectures</option>
+                        <option value="Certificate">Certificates</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <a class="admin-login-link" href="admin.html" title="Admin login" aria-label="Admin login">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                            <path d="M10 17l5-5-5-5"></path>
+                            <path d="M15 12H3"></path>
+                        </svg>
+                        <span class="sr-only">Admin login</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section class="hero-section">
+            <div class="hero-inner">
+                <div class="hero-photo">
+                    <img src="Profile.jpg" alt="Profile Photo" loading="eager" decoding="async" fetchpriority="high">
+                </div>
+                <div class="hero-copy">
+                    
+                    <h1>Syed Aftab Gilani</h1>
+                    <p class="title">COO/Airport Manager, Islamabad International Airport</p>
+                    <div class="profile-summary">
+                        <p class="lead">MBA in Operations Management from LUMS, M.Sc. in Physics from GC University Lahore, Basic Air Traffic Control Course ,Aviation Policy,Civil Aviation management and Public Policy Program from renowned institutions in Singapore and South Korea.</p>
+                        <p class="lead">Committed to advancing Airport Operations through innovation, efficiency, and continuous improvement, while fostering a culture of safety, service excellence, and sustainable growth.</p>
+                    </div>
+                    <div class="quote-box">
+                        <p>What you leave behind is not what is engraved in stone monuments, but what is woven into the lives of others.</p>
+                    </div>
+                    <section id="profileSection" class="profile-details" style="display:none;">
+                        <div class="section-header">
+                            <h2>Educational Qualifications</h2>
+                        </div>
+                        <div class="education-list">
+                            <div class="education-card">
+                            <div class="education-top">
+                                <div>
+                                    <h4>1. Master of Business Administration (MBA)</h4>
+                                    <div class="edu-detail edu-caption"> Lahore University of Management Sciences (LUMS)</div>
+                                </div>
+                                <div class="training-date edu-year">2010 - 2012</div>
+                            </div>
+                            <div class="edu-images">
+                                <div class="gallery-card"><img src="lumsconvo1.jpg?v=20260613" alt="LUMS 1" loading="lazy" decoding="async"></div>
+                                <div class="gallery-card"><img src="lumsconvo2.jpg" alt="LUMS 2" loading="lazy" decoding="async"></div>
+                               
+                            </div>
+                        </div>
+
+                            <div class="education-card">
+                                <div class="education-top">
+                                    <div>
+                                        <h4>2. Master of Science (M.Sc.), Physics</h4>
+                                        <div class="edu-detail edu-caption">Govt College (GC), University Lahore</div>
+                                    </div>
+                                    <div class="training-date edu-year">1992 - 1994</div>
+                                </div>
+                                <div class="edu-images">
+                                    <div class="gallery-card"><img src="gcconvo1.jpg" alt="GC 1" loading="lazy" decoding="async"></div>
+                                   
+                                </div>
+                            </div>
+                            
+                            <div class="education-card">
+                                <div class="education-top">
+                                    <div>
+                                        <h4>3. Aviation Policy</h4>
+                                        <div class="edu-detail edu-caption">South Korea</div>
+                                    </div>
+                                    <div class="training-date edu-year">2014</div>
+                                </div>
+                                <div class="edu-images">
+                                    <div class="gallery-card"><img src="AviationPolicySouthKorea.jpg" alt="South Korea 1" loading="lazy" decoding="async"></div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="education-card">
+                                <div class="education-top">
+                                    <div>
+                                        <h4>4.Civil Aviation Management Program</h4>
+                                        <div class="edu-detail edu-caption">Singapore</div>
+                                    </div>
+                                    <div class="training-date edu-year">2015</div>
+                                </div>
+                                <div class="edu-images">
+                                    <div class="gallery-card"><img src="CivilAviationManagementProgramSingapore.jpg" alt="Singapore 1" loading="lazy" decoding="async"></div>
+                                    <div class="gallery-card"><img src="SingaporeCivilAviationManagement.jpg" alt="Singapore 2" loading="lazy" decoding="async"></div>
+                                </div>
+                            </div>
+
+                            <div class="education-card">
+                                <div class="education-top">
+                                    <div>
+                                        <h4>5. Public Policy Program</h4>
+                                        <div class="edu-detail edu-caption">Lee Kuan Yew School of Public Policy (LKYSPP), National University of Singapore</div>
+                                    </div>
+                                    <div class="training-date edu-year">2017 - 2018</div>
+                                </div>
+                                <div class="edu-images">
+                                    <div class="gallery-card"><img src="(LKYSPP).png" alt="LKYSPP 1" loading="lazy" decoding="async"></div>
+                                    <div class="gallery-card"><img src="(LKYSPP)1.jpg" alt="LKYSPP 2" loading="lazy" decoding="async"></div>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="intro-actions">
+                <button id="showMoreBtn" class="btn btn-primary quote-box-btn">Click to view Detailed Profile</button>
+            </div>
+        </section>
+
+        <section class="timeline-section">
+
+            <div class="section-header">
+                <h2> Lectures Delivered</h2>
+            </div>
+            <div class="timeline-wrapper" id="recordsContainer">
+                <div class="timeline-item skeleton-item">
+                    <div class="timeline-marker"><span class="marker-dot" style="background:#e2e8f0;box-shadow:none;"></span></div>
+                    <div class="timeline-card">
+                        <div class="skeleton-line" style="width:55%;height:22px;"></div>
+                        <div class="skeleton-line" style="width:32%;height:14px;"></div>
+                        <div class="skeleton-line" style="width:100%;height:13px;margin-top:18px;"></div>
+                        <div class="skeleton-line" style="width:92%;height:13px;"></div>
+                        <div class="skeleton-line" style="width:78%;height:13px;margin-bottom:20px;"></div>
+                        <div class="gallery-grid">
+                            <div class="skeleton-image"></div>
+                            <div class="skeleton-image"></div>
+                            <div class="skeleton-image"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item skeleton-item">
+                    <div class="timeline-marker"><span class="marker-dot" style="background:#e2e8f0;box-shadow:none;"></span></div>
+                    <div class="timeline-card">
+                        <div class="skeleton-line" style="width:48%;height:22px;"></div>
+                        <div class="skeleton-line" style="width:28%;height:14px;"></div>
+                        <div class="skeleton-line" style="width:100%;height:13px;margin-top:18px;"></div>
+                        <div class="skeleton-line" style="width:88%;height:13px;"></div>
+                        <div class="skeleton-line" style="width:65%;height:13px;margin-bottom:20px;"></div>
+                        <div class="gallery-grid">
+                            <div class="skeleton-image"></div>
+                            <div class="skeleton-image"></div>
+                            <div class="skeleton-image"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item skeleton-item">
+                    <div class="timeline-marker"><span class="marker-dot" style="background:#e2e8f0;box-shadow:none;"></span></div>
+                    <div class="timeline-card">
+                        <div class="skeleton-line" style="width:62%;height:22px;"></div>
+                        <div class="skeleton-line" style="width:38%;height:14px;"></div>
+                        <div class="skeleton-line" style="width:100%;height:13px;margin-top:18px;"></div>
+                        <div class="skeleton-line" style="width:95%;height:13px;"></div>
+                        <div class="skeleton-line" style="width:72%;height:13px;margin-bottom:20px;"></div>
+                        <div class="gallery-grid">
+                            <div class="skeleton-image"></div>
+                            <div class="skeleton-image"></div>
+                            <div class="skeleton-image"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-results" id="noResultsMessage" style="display:none;">
+                <strong>No matching records found.</strong>
+                Adjust your search or filter selection to display records.
+            </div>
+            <div id="loadMoreTrigger" style="height: 20px; margin-top: 20px;"></div>
+            <div id="loadMoreSpinner" class="load-more-spinner" style="display:none;">
+                <div class="spinner"></div>
+            </div>
+        </section>
+
+        <div class="toolbar-footer">Syed Aftab Gilani</div>
+    </div>
+
+    <div class="watermark"><span>TRAINING PORTFOLIO</span></div>
+
+    <script>
+        // Load portfolio data from the server-backed Supabase store.
+        let trainingData = [];
+        let trainingDataSignature = '';
+        
+        function getTrainingDataSignature(records) {
+            return JSON.stringify(records.map(record => ({
+                id: record.id,
+                title: record.title,
+                category: record.category,
+                provider: record.provider,
+                date: record.date,
+                type: record.type,
+                description: record.description,
+                certificateNo: record.certificateNo,
+                images: record.images
+            })));
+        }
+
+        async function refreshTrainingData() {
+            try {
+                const response = await fetch('/api/training-records', { cache: 'no-store' });
+                if (!response.ok) {
+                    throw new Error('Unable to load database records');
+                }
+                const data = await response.json();
+                const nextData = deduplicateTrainingRecords((data.records || []).map(normalizeTrainingRecord));
+                const nextSignature = getTrainingDataSignature(nextData);
+                if (nextSignature === trainingDataSignature) {
+                    return false;
+                }
+
+                trainingData = nextData;
+                trainingDataSignature = nextSignature;
+                filteredData = [...trainingData];
+                populateCategoryOptions();
+                filterAndRender();
+                return true;
+            } catch (error) {
+                console.error(error);
+                return false;
+            }
+        }
+
+        function normalizeTrainingRecord(item) {
+            return {
+                ...item,
+                id: item.id || generateStableId(item),
+                type: item.type || 'Seminar',
+                duration: item.duration || '1 Day',
+                certificateNo: item.certificateNo || '',
+                images: Array.isArray(item.images)
+                    ? item.images
+                    : item.images
+                        ? [item.images]
+                        : []
+            };
+        }
+
+        function generateStableId(item) {
+            return [item.title, item.provider, item.date]
+                .join('|')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+        }
+
+        function getRecordKey(item) {
+            return [item.title, item.provider, item.date].join('|').toLowerCase();
+        }
+
+        function getSemanticRecordKey(item) {
+            return [item.title, item.provider].join('|').toLowerCase();
+        }
+
+        function dateSpecificity(dateString) {
+            if (dateString === '2000') {
+                return 0;
+            }
+            if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+                return 3;
+            }
+            if (/^\d{4}$/.test(dateString)) {
+                return 2;
+            }
+            return 1;
+        }
+
+        function pickPreferredRecord(current, candidate) {
+            const currentScore = dateSpecificity(current.date);
+            const candidateScore = dateSpecificity(candidate.date);
+            if (candidateScore !== currentScore) {
+                return candidateScore > currentScore ? candidate : current;
+            }
+
+            const currentImages = (current.images || []).length;
+            const candidateImages = (candidate.images || []).length;
+            if (candidateImages !== currentImages) {
+                return candidateImages > currentImages ? candidate : current;
+            }
+
+            return candidate;
+        }
+
+        function deduplicateTrainingRecords(records) {
+            const merged = new Map();
+            const orderedKeys = [];
+
+            records.forEach(record => {
+                const key = getSemanticRecordKey(record);
+                if (!merged.has(key)) {
+                    merged.set(key, record);
+                    orderedKeys.push(key);
+                    return;
+                }
+                merged.set(key, pickPreferredRecord(merged.get(key), record));
+            });
+
+            return orderedKeys.map(key => merged.get(key));
+        }
+
+
+
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const typeFilter = document.getElementById('typeFilter');
+        const recordsContainer = document.getElementById('recordsContainer');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const loadMoreTrigger = document.getElementById('loadMoreTrigger');
+        const loadMoreSpinner = document.getElementById('loadMoreSpinner');
+
+        let filteredData = [...trainingData];
+        let visibleRecordLimit = 10;
+        const recordBatchSize = 10;
+        let isLoadingMore = false;
+
+        async function init() {
+            await refreshTrainingData();
+            attachEventListeners();
+            setupShowMoreToggle();
+            setupLiveDataRefresh();
+        }
+
+        function attachEventListeners() {
+            searchInput.addEventListener('input', filterAndRender);
+            categoryFilter.addEventListener('change', filterAndRender);
+            typeFilter.addEventListener('change', filterAndRender);
+            setupInfiniteScroll();
+        }
+
+        function setupInfiniteScroll() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !isLoadingMore) {
+                        const typeOrder = { 'Seminar': 1, 'Achievement': 2, 'Certificate': 3 };
+                        const sortedData = [...filteredData].sort((a, b) => {
+                            const typeA = typeOrder[a.type] || 999;
+                            const typeB = typeOrder[b.type] || 999;
+                            if (typeA !== typeB) return typeA - typeB;
+                            if (a.category !== b.category) return a.category.localeCompare(b.category);
+                            return new Date(b.date) - new Date(a.date);
+                        });
+
+                        if (visibleRecordLimit < sortedData.length) {
+                            isLoadingMore = true;
+                            loadMoreSpinner.style.display = 'flex';
+                            visibleRecordLimit += recordBatchSize;
+                            setTimeout(() => {
+                                renderRecords();
+                                loadMoreSpinner.style.display = 'none';
+                                isLoadingMore = false;
+                            }, 400);
+                        }
+                    }
+                });
+            }, { rootMargin: '200px' });
+
+            observer.observe(loadMoreTrigger);
+        }
+
+        // Toggle profile details from the hero and education section.
+        function setupShowMoreToggle() {
+            const btn = document.getElementById('showMoreBtn');
+            const hideBtn = document.getElementById('hideProfileBtn');
+            const profile = document.getElementById('profileSection');
+            if (!btn || !profile) return;
+
+            const showProfile = () => {
+                profile.style.display = 'block';
+                btn.textContent = 'Hide Educational Qualifications';
+            };
+
+            const hideProfile = () => {
+                profile.style.display = 'none';
+                btn.textContent = 'Click to view Detailed Profile';
+            };
+
+            btn.addEventListener('click', () => {
+                const hidden = profile.style.display === 'none' || profile.style.display === '';
+                hidden ? showProfile() : hideProfile();
+            });
+
+            if (hideBtn) {
+                hideBtn.addEventListener('click', hideProfile);
+            }
+        }
+
+        function populateCategoryOptions() {
+            const currentValue = categoryFilter.value;
+            const categories = [...new Set(trainingData.map(item => item.category))].sort();
+            categoryFilter.innerHTML = '<option value="">All Categories</option>';
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categoryFilter.appendChild(option);
+            });
+            categoryFilter.value = categories.includes(currentValue) ? currentValue : '';
+        }
+
+        function setupLiveDataRefresh() {
+            if ('EventSource' in window) {
+                const es = new EventSource('/api/training-records/events');
+                es.addEventListener('records-updated', () => refreshTrainingData());
+            }
+
+            if ('BroadcastChannel' in window) {
+                const channel = new BroadcastChannel('portfolio-records');
+                channel.addEventListener('message', (event) => {
+                    if (event.data && event.data.type === 'records-updated') {
+                        refreshTrainingData();
+                    }
+                });
+            }
+        }
+
+        function filterAndRender() {
+            visibleRecordLimit = 10;
+            const query = searchInput.value.trim().toLowerCase();
+            const category = categoryFilter.value;
+            const type = typeFilter.value;
+
+            filteredData = trainingData.filter(item => {
+                const matchesCategory = !category || item.category === category;
+                const matchesType = !type || item.type === type;
+                const matchesQuery = !query || [item.title, item.category, item.provider]
+                    .some(field => field.toLowerCase().includes(query));
+                return matchesCategory && matchesType && matchesQuery;
+            });
+
+            renderRecords();
+        }
+
+        function updateProfileStats() {
+            // Profile metrics removed to simplify executive presentation.
+        }
+
+        function renderRecords() {
+            recordsContainer.innerHTML = '';
+            if (!filteredData.length) {
+                noResultsMessage.style.display = 'block';
+                return;
+            }
+            noResultsMessage.style.display = 'none';
+
+            // Sort by type first (Seminars -> Achievements -> Certificates), then by category, then by date
+            const typeOrder = { 'Seminar': 1, 'Achievement': 2, 'Certificate': 3 };
+            const sortedData = [...filteredData].sort((a, b) => {
+                const typeA = typeOrder[a.type] || 999;
+                const typeB = typeOrder[b.type] || 999;
+                if (typeA !== typeB) return typeA - typeB;
+                
+                // Within same type, sort by category alphabetically
+                if (a.category !== b.category) return a.category.localeCompare(b.category);
+                
+                // Within same category, sort by date (newest first)
+                return new Date(b.date) - new Date(a.date);
+            });
+
+            const visibleData = sortedData.slice(0, visibleRecordLimit);
+
+            // Group by type and category
+            const groupedByTypeAndCategory = {};
+            visibleData.forEach(item => {
+                const typeKey = item.type || 'Seminar';
+                const categoryKey = item.category;
+                
+                if (!groupedByTypeAndCategory[typeKey]) {
+                    groupedByTypeAndCategory[typeKey] = {};
+                }
+                if (!groupedByTypeAndCategory[typeKey][categoryKey]) {
+                    groupedByTypeAndCategory[typeKey][categoryKey] = [];
+                }
+                groupedByTypeAndCategory[typeKey][categoryKey].push(item);
+            });
+
+            // Type order for rendering
+            const renderOrder = ['Seminar', 'Achievement', 'Certificate'];
+            
+            renderOrder.forEach(typeKey => {
+                if (!groupedByTypeAndCategory[typeKey]) return;
+                
+                const categories = groupedByTypeAndCategory[typeKey];
+                const sortedCategories = Object.keys(categories).sort();
+                let typeIndex = 1; // Reset index for each type
+                
+                sortedCategories.forEach(category => {
+                    const categoryHeading = document.createElement('div');
+                    categoryHeading.className = 'category-heading';
+                    const typeLabel = typeKey !== 'Seminar' ? ` - ${typeKey}` : '';
+                    categoryHeading.innerHTML = `<h3 class="category-title">${category}${typeLabel}</h3>`;
+                    recordsContainer.appendChild(categoryHeading);
+
+                    const categoryItems = categories[category];
+                    categoryItems.forEach((item) => {
+                        const card = document.createElement('article');
+                        card.className = 'timeline-item';
+                        card.innerHTML = renderTrainingCard(item, typeIndex, typeKey);
+                        recordsContainer.appendChild(card);
+                        typeIndex++;
+                    });
+                });
+            });
+        }
+
+        function renderTrainingCard(item, index, typeKey) {
+            const isAchievement = (typeKey || item.type) === 'Achievement';
+            const achievementClass = isAchievement ? ' achievement-highlight' : '';
+            const achievementBadge = isAchievement ? '<span class="badge badge-achievement">Highlighted Achievement</span>' : '';
+            
+            return `
+                <div class="timeline-marker"><span class="marker-dot"></span></div>
+                <div class="timeline-card${achievementClass}">
+                    <div class="training-top">
+                        <div>
+                            ${achievementBadge}
+                            <h3>${index}. ${item.title}</h3>
+                            <p class="provider">${item.provider}</p>
+                        </div>
+                        <div class="training-date">${formatDate(item.date)}</div>
+                    </div>
+                    <p class="training-description">${item.description}</p>
+                    <div class="gallery-grid">
+                        ${item.images.map((src, idx) => `<div class="gallery-card"><img src="${src || placeholderImage()}" alt="${item.title} photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function placeholderImage() {
+            return 'https://via.placeholder.com/720x450/ffffff/94a3b8?text=No+Image+Available';
+        }
+
+        function formatDate(dateString) {
+            if (/^\d{4}$/.test(dateString)) {
+                return dateString;
+            }
+
+            const date = new Date(dateString);
+            if (Number.isNaN(date.getTime())) {
+                return dateString;
+            }
+
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function getLatestTrainingYear(data) {
+            const years = data.map(item => new Date(item.date).getFullYear());
+            return years.length ? Math.max(...years) : 'â€”';
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

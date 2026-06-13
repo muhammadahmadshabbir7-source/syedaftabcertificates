@@ -1,0 +1,5 @@
+.env
+*.md
+*.log
+node_modules/
+server.test.js

@@ -1,0 +1,10 @@
+{
+  "main": "server.js",
+  "scripts": {
+    "start": "node local-server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
