@@ -46,7 +46,7 @@ function getDefaultTrainingData() {
                 title: "Airport Ecosystem and Operational Management",
                 category: "Aviation Connectivity and Tourism",
                 provider: "PAA APM / CEO OPIS",
-                date: "2025-05-22",
+                date: "2026-04-09",
                 duration: "1 Day",
                 description: "Thanks to PAA APM / CEO OPIS for enlightening the students on airport ecosystem and operational management.",
                 images: [
@@ -61,7 +61,7 @@ function getDefaultTrainingData() {
                 provider: "Information Technology University, Punjab",
                 date: "2020-03-07",
                 duration: "1 Day",
-                description: "Always treat your employees exactly as you want them to treat your best customers  Stephen R. Covey. Discussed role of industrial relations in aviation Industry with students of school of business and management of Information Technology University,Punjab.",
+                description: "\"Always treat your employees exactly as you want them to treat your best customers\" — \"Stephen R. Covey\". Discussed role of industrial relations in aviation Industry with students of school of business and management of Information Technology University, Punjab.",
                 images: [
                     "pu.jpg",
                     "pu2.jpg",
@@ -136,11 +136,11 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "International Air Law for Civil Aviation",
+                title: "Key Features of Chicago Convention",
                 category: "Aviation Law and Policy",
                 provider: "Law College, Punjab University Lahore",
                 date: "2020-01-20",
-                description: "Safe,secure and sustainable aviation is possible only if system of rules governing international #civilaviation is implemented effectively. Held a talk on International Air Law with LLB and LLM students of #PunjabUniversity Law College,the oldest and finest seat of legal learning in the country.",
+                description: "Held a talk on International Air Law and key features of Chicago Convention with LLB and LLM students of Punjab University Law College, the oldest and finest seat of legal learning in the country.",
                 images: [
                     "law1.jpg",
                     "law2.jpg",
@@ -160,7 +160,7 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "Digital Transformation at ITU Lahore",
+                title: "Digital Transformation in Aviation University",
                 category: "AI and Digital Transformation in Aviation Industry",
                 provider: "Information Technology University, Lahore",
                 date: "2019-12-28",
@@ -199,7 +199,7 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "Climate Emergency and Women in Aviation",
+                title: "Climate Emergency and Environmental Crisis",
                 category: "Sustainability",
                 provider: "Lahore College for Women University",
                 date: "2019-11-15",
@@ -264,8 +264,8 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "Air Transport Liberalization at LUMS",
-                category: "Aviation Management",
+                title: "Air Transport Liberalization",
+                category: "Aviation Economics",
                 provider: "Suleman Dawood School of Business, LUMS",
                 date: "2019-10-11",
                 duration: "1 Day",
@@ -277,8 +277,8 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "Supply Chain Management in Aviation",
-                category: "Aviation Management",
+                title: "Air Cargo and Supply Chain Management",
+                category: "Cargo and Supply Chain Management",
                 provider: "Suleman Dawood School of Business, LUMS",
                 date: "2025",
                 duration: "1 Day",
@@ -304,10 +304,10 @@ function getDefaultTrainingData() {
             {
                 title: "Flight Safety Hazards at Airports",
                 category: "Flight Safety",
-                provider: "Islamabad International Airport, Pakistan",
+                provider: "Hybrid Aviation Flying Club, Lahore",
                 date: "2025-07-09",
                 duration: "1 Day",
-                description: "Hosted an interactive session with trainee pilots and instructors from Rawalpindi Flying Club to discuss flight safety hazards at airports.",
+                description: "Hosted an interactive session with trainee pilots and instructors from Hybrid Aviation Flying Club, Lahore to discuss flight safety hazards at airports and ICAO Standards and Recommended Practices (SARPs).",
                 images: [
                     "flying2.jpg",
                     "flying.jpg",
@@ -320,7 +320,7 @@ function getDefaultTrainingData() {
                 provider: "Institute of Business Administration, Karachi",
                 date: "2025-09-14",
                 duration: "1 Day",
-                description: "Delivered a lecture on National Aviation Policy 2023 to participants of the Aviation Leadership and Management program at IBA Karachi.",
+                description: "Delivered a lecture on salient features of National Aviation Policy 2023 to participants of the Aviation Leadership and Management program at IBA Karachi.",
                 images: [
                     "iba1.jpg",
                     "iba2.jpg",
@@ -353,12 +353,12 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "FRMUN Chief Guest Address",
+                title: "Role of United Nations in Peacekeeping",
                 category: "Aviation Management",
                 provider: "PAF Fazaia College Risalpur",
                 date: "2026-05-12",
                 duration: "1 Day",
-                description: "Participated as the Chief Guest in the award and closing ceremony of Fazaia Risalpur Model United Nations Forum, emphasizing leadership, debate, and global awareness.",
+                description: "Discussed role of United Nations in peacekeeping with students at the Fazaia Risalpur Model United Nations Forum, emphasizing the significance of international law, diplomacy and global security.",
                 images: [
                     "risalpur1.jpg",
                     "risalpur2.jpg",
@@ -369,7 +369,7 @@ function getDefaultTrainingData() {
                 title: "Aviation and Tourism Panel Discussion",
                 category: "Aviation Connectivity and Tourism",
                 provider: "COTHM and PTDC",
-                date: "2026-05-28",
+                date: "2025-12-17",
                 duration: "1 Day",
                 description: "Joined a panel discussion to explore the role of aviation in promoting tourism in Pakistan.",
                 images: [
@@ -379,12 +379,12 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "Aviation Meteorology Workshop",
+                title: "International Aviation Meteorology Workshop",
                 category: "Flight Safety",
                 provider: "Pakistan Meteorological Department",
                 date: "2026-02-03",
                 duration: "1 Day",
-                description: "Spoke as a keynote speaker on the effects of weather on airport operations during an international workshop on Aviation Meteorology organized by PMD.",
+                description: "Spoke as a keynote speaker on the effect of weather on airport operations during an international workshop on Aviation Meteorology organized by Pakistan Meteorological Department.",
                 images: [
                     "pmd1.jpg",
                     "pmd2.jpg"
@@ -430,12 +430,12 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "Quality of Governance Panel at Punjab University",
+                title: "Public Policy and Governance",
                 category: "Aviation Law and Policy",
                 provider: "Institute of Administrative Sciences, Punjab University Lahore",
                 date: "2019-07-06",
                 duration: "1 Day",
-                description: "As a part of academic excellence activities, Punjab University Institute of Administrative Sciences organized a panel discussion/seminar on Quality of Governance in the age of Complexity for MPhil/PhD students. Expressed my thoughts on Public Policy and Governance.",
+                description: "Discussed public policy and governance with MPhil/PhD students at the Punjab University Institute of Administrative Sciences seminar on Quality of Governance in the age of Complexity.",
                 images: [
                     "pun1.jpg",
                     "pun2.jpg",
@@ -509,11 +509,11 @@ function getDefaultTrainingData() {
             },
             {
                 title: "Emerging Technologies in Aviation at GC University Lahore",
-                category: "Communication and Navigation Services",
+                category: "Emerging Technologies for Air Traffic Management",
                 provider: "Electrical Engineering Department, GC University Lahore",
                 date: "2019-04-27",
                 duration: "1 Day",
-                description: "Visited my alma mater GC University Lahore and held discussion with students and faculty of Electrical Engineering Department of GC University Lahore on Emerging Technologies in Aviation Industry for Global Air Traffic Management. It was a great pleasure to see Honorable Syed Hassan Amir Shah - Vice Chancellor GC University Lahore.",
+                description: "Visited my alma mater GC University Lahore and held discussion with students and faculty of Electrical Engineering Department of GC University Lahore on Emerging Technologies in Aviation Industry for Global Air Traffic Management.",
                 images: [
                     "gcelect1.jpg",
                     "gcelect2.jpg",
@@ -521,8 +521,8 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "Airport Planning & Emerging Trends (UET Lahore)",
-                category: "AI and Digital Transformation in Aviation Industry",
+                title: "Emerging Trends in Airport Planning Engineering and Development",
+                category: "Airport Planning Construction and Development",
                 provider: "Civil / Architecture / Transport Engineering, UET Lahore",
                 date: "2019",
                 duration: "1 Day",
@@ -534,12 +534,12 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "CNS Systems and the Changing Aviation Landscape (LUMS)",
-                category: "Communication and Navigation Services",
+                title: "Changing Landscape of Aviation Industry",
+                category: "Emerging Technologies for Air Traffic Management",
                 provider: "Syed Babar Ali School of Science and Engineering, LUMS",
                 date: "2019-02-09",
                 duration: "1 Day",
-                description: "Held discussion with students of Syed Babar Ali School of Science and Engineering, Lahore University of Management Sciences on 'Communication, Navigation and Surveillance Systems for Global Air Traffic Management, The Changing landscape of Aviation Industry'.",
+                description: "Held discussion with students of Syed Babar Ali School of Science and Engineering, LUMS on the changing landscape of aviation industry through modern Communication, Navigation and Surveillance systems and air traffic management technologies.",
                 images: [
                     "lumsbaber1.jpg",
                     "lumsbaber2.jpg",
@@ -547,7 +547,7 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "ICAO Policy Initiatives & National Aviation Policy (University of Lahore)",
+                title: "ICAO Strategic Objectives and National Aviation Policy",
                 category: "Aviation Law and Policy",
                 provider: "University of Lahore",
                 date: "2018-11-12",
@@ -592,7 +592,7 @@ function getDefaultTrainingData() {
             },
             {
                 title: "Aviation Development and Economic Growth",
-                category: "Aviation Connectivity and Tourism",
+                category: "Aviation Economics",
                 provider: "UET Lahore",
                 date: "2020-01-04",
                 duration: "1 Day",
@@ -604,12 +604,12 @@ function getDefaultTrainingData() {
                 ]
             },
             {
-                title: "Global ATM Conference Dubai",
+                title: "Global ATM Conference",
                 category: "Communication and Navigation Services",
                 provider: "Global ATM Conference, Dubai",
                 date: "2019-11-23",
                 duration: "1 Day",
-                description: "ATM experts from all over the World gathered at Global ATM Conference, Dubai to discuss challenges, policies, strategies, technologies for safe, secure & sustainable growth of Air Traffic.",
+                description: "Discussed challenges, policies, strategies and technologies for safe, secure and sustainable growth of Air Traffic with ATM experts from all over the world at the Global ATM Conference.",
                 images: [
                     "apmexpert1.jpg",
                     "apmexpert2.jpg",
@@ -645,11 +645,11 @@ function getDefaultTrainingData() {
             },
             {
                 title: "Visit to Emirates Aviation University, Dubai",
-                category: "Aviation Education",
+                category: "Communication and Navigation Services",
                 provider: "Emirates Aviation University, Dubai",
                 date: "2019-12-31",
                 duration: "1 Day",
-                description: "Visited Emirates Aviation University, Dubai and reviewed educational & learning facilities; observed student projects on Drones, Gyrocopter, Hexacopter and more.",
+                description: "Visited Emirates Aviation University, Dubai and shared knowledge with students about drones, gyrocopter, hexacopter and other modern aviation technologies; reviewed educational and learning facilities and observed innovative student projects.",
                 images: [
                     "dubai1.jpg",
                     "dubai2.jpg",
@@ -671,7 +671,7 @@ function getDefaultTrainingData() {
             },*/
             {
                 title: "Aviation Diplomacy (Guest Speaker)",
-                category: "Aviation Diplomacy",
+                category: "Aviation Law and Policy",
                 provider: "Islamabad International Airport / FSAISB",
                 date: "2023-12-02",
                 duration: "1 Day",
@@ -684,11 +684,11 @@ function getDefaultTrainingData() {
             },
             {
                 title: "Next Generation Aviation Professionals — VATSIM Pakistan",
-                category: "Aviation Training",
+                category: "Air Traffic Management",
                 provider: "VATSIM Pakistan VACC",
                 date: "2018-10-29",
                 duration: "1 Day",
-                description: "Next generation of Aviation Professionals: young aviation enthusiasts gathered to perform flight simulation as Virtual Controllers & Virtual Pilots under VATSIM Pakistan VACC platform.",
+                description: "Discussed with next generation of aviation professionals about air traffic management. Young aviation enthusiasts performing flight simulation as virtual controllers and virtual pilots under VATSIM Pakistan VACC platform.",
                 images: [
                     "stud1.jpg",
                     "stud2.jpg",
