@@ -656,10 +656,10 @@ function getDefaultTrainingData() {
                     "dubai3.jpg"
                 ]
             },
-            /*{
-                title: "International Civil Aviation Day at Air University",
-                category: "Aviation Education",
-                provider: "Air University",
+            {
+                title: "International Civil Aviation Day",
+                category: "Aviation Management",
+                provider: "Air University, Islamabad",
                 date: "2023-12-23",
                 duration: "1 Day",
                 description: "On International Civil Aviation Day 2023, held an interactive session with BS Aviation Management students of Air University.",
@@ -668,7 +668,7 @@ function getDefaultTrainingData() {
                     "airii.jpg",
                     "airiii.jpg"
                 ]
-            },*/
+            },
             {
                 title: "Aviation Diplomacy (Guest Speaker)",
                 category: "Aviation Law and Policy",
