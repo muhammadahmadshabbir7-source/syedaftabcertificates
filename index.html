@@ -1129,7 +1129,7 @@
                     </div>
                    <div class="quote-box">
     <p>
-        “What you leave behind is not what is engraved in stone monuments, but what is woven into the lives of others.” -<span class="quote-author">Pericles</span>
+        “ What you leave behind is not what is engraved in stone monuments, but what is woven into the lives of others.” -<span class="quote-author">Pericles</span>
     </p>
 </div>
                     <section id="profileSection" class="profile-details" style="display:none;">
@@ -1306,12 +1306,24 @@
 
         async function refreshTrainingData() {
             try {
+                const startTime = performance.now();
+                console.log('refreshTrainingData: start');
+
                 const response = await fetch('/api/training-records', { cache: 'no-store' });
+                const fetchTime = performance.now();
+                console.log('refreshTrainingData: fetch complete', Math.round(fetchTime - startTime), 'ms', response.status);
+
                 if (!response.ok) {
                     throw new Error('Unable to load database records');
                 }
                 const data = await response.json();
+                const jsonTime = performance.now();
+                console.log('refreshTrainingData: json parsed', Math.round(jsonTime - fetchTime), 'ms');
+
                 const nextData = deduplicateTrainingRecords((data.records || []).map(normalizeTrainingRecord));
+                const dedupTime = performance.now();
+                console.log('refreshTrainingData: dedup complete', Math.round(dedupTime - jsonTime), 'ms');
+
                 const nextSignature = getTrainingDataSignature(nextData);
                 if (nextSignature === trainingDataSignature) {
                     return false;
@@ -1322,6 +1334,8 @@
                 filteredData = [...trainingData];
                 populateCategoryOptions();
                 filterAndRender();
+                const totalTime = performance.now() - startTime;
+                console.log('refreshTrainingData: total complete', Math.round(totalTime), 'ms');
                 return true;
             } catch (error) {
                 console.error(error);
