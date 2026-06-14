@@ -1661,7 +1661,7 @@
                             <div class="image-picker-toolbar">
                                 <label class="image-upload-btn">
                                     <input type="file" id="seminarImageFiles" accept="image/*" multiple>
-                                    Select From Computer
+                                    <span>Select From Computer</span>
                                 </label>
                                 <div class="image-path-add">
                                     <input type="text" id="seminarImagePath" placeholder="Or type filename e.g. air1.jpg">
@@ -1723,7 +1723,7 @@
                             <div class="image-picker-toolbar">
                                 <label class="image-upload-btn">
                                     <input type="file" id="achievementImageFiles" accept="image/*" multiple>
-                                    Select From Computer
+                                    <span>Select From Computer</span>
                                 </label>
                                 <div class="image-path-add">
                                     <input type="text" id="achievementImagePath" placeholder="Or type filename e.g. achievement1.jpg">
@@ -1781,7 +1781,7 @@
                             <div class="image-picker-toolbar">
                                 <label class="image-upload-btn">
                                     <input type="file" id="certImageFiles" accept="image/*" multiple>
-                                    Select From Computer
+                                    <span>Select From Computer</span>
                                 </label>
                                 <div class="image-path-add">
                                     <input type="text" id="certImagePath" placeholder="Or type filename e.g. cert1.jpg">
@@ -1874,7 +1874,7 @@
                         <div class="image-picker-toolbar">
                             <label class="image-upload-btn">
                                 <input type="file" id="editImageFiles" accept="image/*" multiple>
-                                Select From Computer
+                                <span>Select From Computer</span>
                             </label>
                             <div class="image-path-add">
                                 <input type="text" id="editImagePath" placeholder="Or type filename e.g. air1.jpg">
@@ -2310,8 +2310,8 @@
             const pickerCfg = imagePickerConfig[key];
             const fileInput = document.getElementById(pickerCfg.fileInputId);
             const labelEl = fileInput ? fileInput.closest('label') : null;
+            const labelSpan = labelEl ? labelEl.querySelector('span') : null;
             if (labelEl) {
-                labelEl.dataset.originalText = labelEl.textContent.trim();
                 labelEl.style.opacity = '0.6';
                 labelEl.style.pointerEvents = 'none';
             }
@@ -2322,7 +2322,7 @@
                     errors.push(`${file.name}: too large (max 15 MB)`);
                     continue;
                 }
-                if (labelEl) labelEl.textContent = `Uploading ${file.name}…`;
+                if (labelSpan) labelSpan.textContent = `Uploading ${file.name}…`;
                 try {
                     const data = await readFileAsDataURL(file);
                     const result = await apiRequest('/api/upload', {
@@ -2336,7 +2336,7 @@
             }
 
             if (labelEl) {
-                labelEl.textContent = labelEl.dataset.originalText || 'Select From Computer';
+                if (labelSpan) labelSpan.textContent = 'Select From Computer';
                 labelEl.style.opacity = '';
                 labelEl.style.pointerEvents = '';
             }
