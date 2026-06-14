@@ -1306,7 +1306,7 @@
 
         async function refreshTrainingData() {
             try {
-                const response = await fetch('/api/training-records', { cache: 'no-store' });
+                const response = await fetch('/api/training-records');
                 if (!response.ok) {
                     throw new Error('Unable to load database records');
                 }

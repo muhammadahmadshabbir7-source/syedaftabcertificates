@@ -1586,6 +1586,13 @@
                     <div class="stat-label">Profile Certificates</div>
                 </div>
             </div>
+            <div style="margin-bottom: 20px; padding: 16px 20px; background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.15); border-radius: 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px;">
+                    <strong style="font-size: 14px;">Migrate Embedded Images</strong>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Upload any images stored as base64 in the database to Supabase Storage to reduce egress costs.</p>
+                </div>
+                <button class="btn btn-secondary" onclick="handleMigrateImages()" style="white-space: nowrap;">Migrate Images to Storage</button>
+            </div>
             <div class="dashboard-section collapsible-section" id="seminarSection">
                 <div class="collapsible-header" onclick="toggleDashboardSection('seminarSection')">
                     <h3 class="section-title">Executive Seminars Timeline</h3>
@@ -1661,7 +1668,7 @@
                                     <button type="button" class="btn btn-secondary btn-small" onclick="addManualImagePath('seminar')">Add Path</button>
                                 </div>
                             </div>
-                            <p class="image-picker-hint">Select images from your computer or add existing filenames. Saved values appear below.</p>
+                            <p class="image-picker-hint">Upload images from your computer (saved to Supabase Storage) or add existing filenames. Saved values appear below.</p>
                             <textarea id="seminarImages" readonly placeholder="Saved images will appear here..."></textarea>
                             <div class="image-preview-grid" id="seminarImagePreview"></div>
                         </div>
@@ -1723,7 +1730,7 @@
                                     <button type="button" class="btn btn-secondary btn-small" onclick="addManualImagePath('achievement')">Add Path</button>
                                 </div>
                             </div>
-                            <p class="image-picker-hint">Select images from your computer or add existing filenames. Saved values appear below.</p>
+                            <p class="image-picker-hint">Upload images from your computer (saved to Supabase Storage) or add existing filenames. Saved values appear below.</p>
                             <textarea id="achievementImages" readonly placeholder="Saved images will appear here..."></textarea>
                             <div class="image-preview-grid" id="achievementImagePreview"></div>
                         </div>
@@ -1781,7 +1788,7 @@
                                     <button type="button" class="btn btn-secondary btn-small" onclick="addManualImagePath('certificate')">Add Path</button>
                                 </div>
                             </div>
-                            <p class="image-picker-hint">Select images from your computer or add existing filenames. Saved values appear below.</p>
+                            <p class="image-picker-hint">Upload images from your computer (saved to Supabase Storage) or add existing filenames. Saved values appear below.</p>
                             <textarea id="certImages" readonly placeholder="Saved images will appear here..."></textarea>
                             <div class="image-preview-grid" id="certImagePreview"></div>
                         </div>
@@ -2298,20 +2305,56 @@
 
         async function addFilesToImagePicker(key, fileList) {
             const files = Array.from(fileList || []).filter(file => file.type.startsWith('image/'));
-            if (!files.length) {
-                return;
+            if (!files.length) return;
+
+            const pickerCfg = imagePickerConfig[key];
+            const fileInput = document.getElementById(pickerCfg.fileInputId);
+            const labelEl = fileInput ? fileInput.closest('label') : null;
+            if (labelEl) {
+                labelEl.dataset.originalText = labelEl.textContent.trim();
+                labelEl.style.opacity = '0.6';
+                labelEl.style.pointerEvents = 'none';
             }
 
+            const errors = [];
             for (const file of files) {
-                const src = await readFileAsDataURL(file);
-                imagePickerConfig[key].items.push({
-                    src,
-                    label: file.name,
-                    embedded: true
-                });
+                if (file.size > 15_000_000) {
+                    errors.push(`${file.name}: too large (max 15 MB)`);
+                    continue;
+                }
+                if (labelEl) labelEl.textContent = `Uploading ${file.name}…`;
+                try {
+                    const data = await readFileAsDataURL(file);
+                    const result = await apiRequest('/api/upload', {
+                        method: 'POST',
+                        body: JSON.stringify({ filename: file.name, data, contentType: file.type })
+                    });
+                    pickerCfg.items.push({ src: result.url, label: file.name, embedded: false });
+                } catch (err) {
+                    errors.push(`${file.name}: ${err.message}`);
+                }
             }
 
+            if (labelEl) {
+                labelEl.textContent = labelEl.dataset.originalText || 'Select From Computer';
+                labelEl.style.opacity = '';
+                labelEl.style.pointerEvents = '';
+            }
+            if (errors.length) alert('Upload errors:\n' + errors.join('\n'));
             renderImagePicker(key);
+        }
+
+        async function handleMigrateImages() {
+            if (!confirm('This will upload all embedded (base64) images to Supabase Storage and update the database records. This may take a while. Continue?')) return;
+            try {
+                const result = await apiRequest('/api/migrate-images', { method: 'POST' });
+                const msg = `Migration complete:\n• ${result.migrated} record(s) updated\n• ${result.skipped} record(s) skipped (no embedded images)`;
+                const errMsg = result.errors && result.errors.length ? '\n\nErrors:\n' + result.errors.join('\n') : '';
+                alert(msg + errMsg);
+                if (result.migrated > 0) await loadAllRecords({ reload: true });
+            } catch (err) {
+                alert('Migration failed: ' + err.message);
+            }
         }
 
         function addManualImagePath(key) {
@@ -2342,11 +2385,12 @@
         }
 
         function setImagePickerItems(key, images) {
-            imagePickerConfig[key].items = (images || []).map(src => ({
-                src,
-                label: src.startsWith('data:') ? 'uploaded-image' : src,
-                embedded: src.startsWith('data:')
-            }));
+            imagePickerConfig[key].items = (images || []).map(src => {
+                if (typeof src !== 'string' || !src) return { src: '', label: '', embedded: false };
+                if (src.startsWith('data:')) return { src, label: 'embedded-image', embedded: true };
+                const label = src.startsWith('http') ? decodeURIComponent(src.split('/').pop()) : src;
+                return { src, label, embedded: false };
+            });
             renderImagePicker(key);
         }
 
