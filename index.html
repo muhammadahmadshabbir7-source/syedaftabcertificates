@@ -1431,7 +1431,7 @@
         function attachEventListeners() {
             searchInput.addEventListener('input', filterAndRender);
             categoryFilter.addEventListener('change', filterAndRender);
-            typeFilter.addEventListener('change', filterAndRender);
+            typeFilter.addEventListener('change', () => { populateCategoryOptions(); filterAndRender(); });
             setupInfiniteScroll();
         }
 
@@ -1494,7 +1494,9 @@
 
         function populateCategoryOptions() {
             const currentValue = categoryFilter.value;
-            const categories = [...new Set(trainingData.map(item => item.category))].sort();
+            const activeType = typeFilter.value;
+            const sourceData = activeType ? trainingData.filter(item => item.type === activeType) : trainingData;
+            const categories = [...new Set(sourceData.map(item => item.category))].sort();
             categoryFilter.innerHTML = '<option value="">All Categories</option>';
             categories.forEach(category => {
                 const option = document.createElement('option');
