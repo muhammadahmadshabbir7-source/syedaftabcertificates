@@ -548,6 +548,7 @@
             position: relative;
             overflow: hidden;
             border-radius: 24px;
+            min-height: 180px;
             background: var(--surface);
             border: 1px solid rgba(15, 23, 42, 0.08);
             box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
@@ -561,7 +562,8 @@
 
         .gallery-card img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
             transition: transform 0.3s ease;
         }
@@ -811,7 +813,6 @@
 
         .education-card .gallery-card img {
             height: 100%;
-            object-fit: cover;
         }
 
         .edu-caption {
