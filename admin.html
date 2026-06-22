@@ -1792,6 +1792,22 @@
                             <textarea id="certImages" readonly placeholder="Saved images will appear here..."></textarea>
                             <div class="image-preview-grid" id="certImagePreview"></div>
                         </div>
+                        <div class="form-group full image-picker-block">
+                            <label>Monogram / Seal (shown below the date)</label>
+                            <div class="image-picker-toolbar">
+                                <label class="image-upload-btn">
+                                    <input type="file" id="certMonogramFiles" accept="image/*">
+                                    <span>Select From Computer</span>
+                                </label>
+                                <div class="image-path-add">
+                                    <input type="text" id="certMonogramPath" placeholder="Or type filename e.g. seal1.jpg">
+                                    <button type="button" class="btn btn-secondary btn-small" onclick="addManualImagePath('certMonogram')">Add Path</button>
+                                </div>
+                            </div>
+                            <p class="image-picker-hint">One small logo/seal image. Prefer an existing local filename over uploading a new file when possible.</p>
+                            <textarea id="certMonogramImages" readonly placeholder="Saved image will appear here..."></textarea>
+                            <div class="image-preview-grid" id="certMonogramPreview"></div>
+                        </div>
                     </div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="resetCertForm()">Clear</button>
@@ -1884,6 +1900,22 @@
                         <p class="image-picker-hint">Select images from your computer or add existing filenames. Saved values appear below.</p>
                         <textarea id="editImages" readonly placeholder="Saved images will appear here..."></textarea>
                         <div class="image-preview-grid" id="editImagePreview"></div>
+                    </div>
+                    <div class="form-group full image-picker-block">
+                        <label>Monogram / Seal (certificates only, shown below the date)</label>
+                        <div class="image-picker-toolbar">
+                            <label class="image-upload-btn">
+                                <input type="file" id="editMonogramFiles" accept="image/*">
+                                <span>Select From Computer</span>
+                            </label>
+                            <div class="image-path-add">
+                                <input type="text" id="editMonogramPath" placeholder="Or type filename e.g. seal1.jpg">
+                                <button type="button" class="btn btn-secondary btn-small" onclick="addManualImagePath('editMonogram')">Add Path</button>
+                            </div>
+                        </div>
+                        <p class="image-picker-hint">One small logo/seal image. Prefer an existing local filename over uploading a new file when possible.</p>
+                        <textarea id="editMonogramImages" readonly placeholder="Saved image will appear here..."></textarea>
+                        <div class="image-preview-grid" id="editMonogramPreview"></div>
                     </div>
                 </div>
                 <div class="modal-buttons">
@@ -2262,7 +2294,9 @@
             seminar: { fileInputId: 'seminarImageFiles', pathInputId: 'seminarImagePath', textareaId: 'seminarImages', previewId: 'seminarImagePreview', items: [] },
             achievement: { fileInputId: 'achievementImageFiles', pathInputId: 'achievementImagePath', textareaId: 'achievementImages', previewId: 'achievementImagePreview', items: [] },
             certificate: { fileInputId: 'certImageFiles', pathInputId: 'certImagePath', textareaId: 'certImages', previewId: 'certImagePreview', items: [] },
-            edit: { fileInputId: 'editImageFiles', pathInputId: 'editImagePath', textareaId: 'editImages', previewId: 'editImagePreview', items: [] }
+            edit: { fileInputId: 'editImageFiles', pathInputId: 'editImagePath', textareaId: 'editImages', previewId: 'editImagePreview', items: [] },
+            certMonogram: { fileInputId: 'certMonogramFiles', pathInputId: 'certMonogramPath', textareaId: 'certMonogramImages', previewId: 'certMonogramPreview', items: [], single: true },
+            editMonogram: { fileInputId: 'editMonogramFiles', pathInputId: 'editMonogramPath', textareaId: 'editMonogramImages', previewId: 'editMonogramPreview', items: [], single: true }
         };
 
         // The main profile page owns the full default data set. Do not seed a
@@ -2308,6 +2342,8 @@
             if (!files.length) return;
 
             const pickerCfg = imagePickerConfig[key];
+            if (pickerCfg.single) pickerCfg.items = [];
+            pickerCfg.uploading = true;
             const fileInput = document.getElementById(pickerCfg.fileInputId);
             const labelEl = fileInput ? fileInput.closest('label') : null;
             const labelSpan = labelEl ? labelEl.querySelector('span') : null;
@@ -2340,8 +2376,13 @@
                 labelEl.style.opacity = '';
                 labelEl.style.pointerEvents = '';
             }
+            pickerCfg.uploading = false;
             if (errors.length) alert('Upload errors:\n' + errors.join('\n'));
             renderImagePicker(key);
+        }
+
+        function isPickerUploading(...keys) {
+            return keys.some((key) => imagePickerConfig[key] && imagePickerConfig[key].uploading);
         }
 
         async function handleMigrateImages() {
@@ -2365,6 +2406,7 @@
                 return;
             }
 
+            if (config.single) config.items = [];
             config.items.push({
                 src: value,
                 label: value,
@@ -2574,8 +2616,12 @@
 
         async function handleAddSeminar(event) {
             event.preventDefault();
+            if (isPickerUploading('seminar')) {
+                alert('Please wait for the image upload to finish before saving.');
+                return;
+            }
             const successDiv = document.getElementById('seminarSuccess');
-            
+
             let category = document.getElementById('seminarCategory').value;
             if (category === '__new__') {
                 alert('Please enter the new category name and click Add Category');
@@ -2617,8 +2663,12 @@
 
         async function handleAddAchievement(event) {
             event.preventDefault();
+            if (isPickerUploading('achievement')) {
+                alert('Please wait for the image upload to finish before saving.');
+                return;
+            }
             const successDiv = document.getElementById('achievementSuccess');
-            
+
             let category = document.getElementById('achievementCategory').value;
             if (category === '__new__') {
                 alert('Please enter the new category name and click Add Category');
@@ -2772,6 +2822,10 @@
 
         async function handleAddCertificate(event) {
             event.preventDefault();
+            if (isPickerUploading('certificate', 'certMonogram')) {
+                alert('Please wait for the image upload to finish before saving.');
+                return;
+            }
             const successDiv = document.getElementById('certSuccess');
 
             const newRecord = {
@@ -2784,6 +2838,7 @@
                 description: document.getElementById('certDescription').value,
                 certificateNo: document.getElementById('certNumber').value,
                 images: getImagePickerValues('certificate'),
+                monogram: getImagePickerValues('certMonogram')[0] || '',
                 type: 'Certificate'
             };
 
@@ -2795,6 +2850,7 @@
             setTimeout(() => successDiv.classList.remove('show'), 3000);
             document.getElementById('addCertForm').reset();
             clearImagePicker('certificate');
+            clearImagePicker('certMonogram');
             populateCertCategoryDropdown();
             await updateDashboard({ reload: false });
         }
@@ -3117,6 +3173,7 @@
                 document.getElementById('editDate').value = record.date;
                 document.getElementById('editDescription').value = record.description;
                 setImagePickerItems('edit', record.images || []);
+                setImagePickerItems('editMonogram', record.monogram ? [record.monogram] : []);
 
                 document.getElementById('editModal').classList.add('show');
             }
@@ -3125,11 +3182,16 @@
         function closeEditModal() {
             document.getElementById('editModal').classList.remove('show');
             clearImagePicker('edit');
+            clearImagePicker('editMonogram');
             currentEditingId = null;
         }
 
         async function handleEditSubmit(event) {
             event.preventDefault();
+            if (isPickerUploading('edit', 'editMonogram')) {
+                alert('Please wait for the image upload to finish before saving.');
+                return;
+            }
 
             const record = allRecords.find(r => r.id === currentEditingId);
             if (record) {
@@ -3140,10 +3202,12 @@
                 record.date = document.getElementById('editDate').value;
                 record.description = document.getElementById('editDescription').value;
                 record.images = getImagePickerValues('edit');
+                record.monogram = getImagePickerValues('editMonogram')[0] || '';
                 removeDeletedRecordKey(getRecordKey(record));
 
                 await saveRecord(record);
                 clearImagePicker('edit');
+                clearImagePicker('editMonogram');
                 closeEditModal();
                 await loadAllRecords({ reload: false });
                 await updateDashboard({ reload: false });
@@ -3185,6 +3249,7 @@
         function resetCertForm() {
             document.getElementById('addCertForm').reset();
             clearImagePicker('certificate');
+            clearImagePicker('certMonogram');
         }
 
         function formatDate(dateString) {

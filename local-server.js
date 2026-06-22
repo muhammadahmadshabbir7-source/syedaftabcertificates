@@ -11,6 +11,8 @@ const {
   handleSession,
   sendError
 } = require('./lib/portfolio-api');
+const handleUpload = require('./api/upload');
+const handleMigrateImages = require('./api/migrate-images');
 
 const ROOT = __dirname;
 const recordEventClients = new Set();
@@ -54,6 +56,8 @@ async function handleApi(req, res, url) {
   if (url.pathname === '/api/auth/session') return handleSession(req, res);
   if (url.pathname === '/api/auth/logout') return handleLogout(req, res);
   if (url.pathname === '/api/categories') return handleCategories(req, res);
+  if (url.pathname === '/api/upload') return handleUpload(req, res);
+  if (url.pathname === '/api/migrate-images') return handleMigrateImages(req, res);
   if (url.pathname === '/api/training-records/events' && req.method === 'GET') return handleRecordEvents(req, res);
   if (url.pathname === '/api/training-records') return handleLocalRecords(req, res);
   if (url.pathname.startsWith('/api/training-records/')) {

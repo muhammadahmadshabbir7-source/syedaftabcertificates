@@ -459,6 +459,17 @@
             background: linear-gradient(90deg, rgba(251, 191, 36, 0.06) 0%, transparent 80%);
         }
 
+        .badge-certificate {
+            background: rgba(37, 99, 235, 0.12);
+            color: var(--indigo);
+            border: 1px solid rgba(37, 99, 235, 0.25);
+        }
+
+        .certificate-highlight {
+            border-left: 4px solid var(--indigo);
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.05) 0%, transparent 80%);
+        }
+
         .training-top h3 {
             font-size: 1.2rem;
             margin-bottom: 10px;
@@ -522,6 +533,26 @@
             font-weight: 700;
             color: var(--text);
             margin-bottom: 8px;
+        }
+
+        .training-date-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .training-monogram {
+            max-width: 84px;
+            max-height: 84px;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            border: 2px solid rgba(37, 99, 235, 0.2);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1);
+            background: #fff;
+            padding: 4px;
         }
 
         .certificate-line {
@@ -985,6 +1016,17 @@
             .training-date {
                 white-space: normal;
             }
+
+            .training-date-block {
+                align-items: flex-start;
+                flex-direction: row;
+                gap: 14px;
+            }
+
+            .training-monogram {
+                max-width: 60px;
+                max-height: 60px;
+            }
         }
 
         /* ── Global overflow guards ── */
@@ -1096,9 +1138,9 @@
                 <div class="control-group">
                     <label for="typeFilter">Type filter</label>
                     <select id="typeFilter">
-                        <!-- <option value="">All Types</option> -->
-                        <option value="Seminar" selected>Lectures</option>
-                        <!-- <option value="Certificate">Certificates</option> -->
+                        <option value="">All Types</option>
+                        <option value="Seminar">Lectures</option>
+                        <option value="Certificate">Certificates</option>
                     </select>
                 </div>
                 <div class="button-group">
@@ -1221,7 +1263,7 @@
         <section class="timeline-section">
 
             <div class="section-header">
-                <h2> Lectures Delivered</h2>
+                <h2 id="sectionHeading">Lectures Delivered</h2>
             </div>
             <div class="timeline-wrapper" id="recordsContainer">
                 <div class="timeline-item skeleton-item">
@@ -1300,6 +1342,7 @@
                 type: record.type,
                 description: record.description,
                 certificateNo: record.certificateNo,
+                monogram: record.monogram,
                 images: record.images
             })));
         }
@@ -1336,6 +1379,7 @@
                 type: item.type || 'Seminar',
                 duration: item.duration || '1 Day',
                 certificateNo: item.certificateNo || '',
+                monogram: item.monogram || '',
                 images: Array.isArray(item.images)
                     ? item.images
                     : item.images
@@ -1523,11 +1567,23 @@
             }
         }
 
+        function updateSectionHeading(type) {
+            const heading = document.getElementById('sectionHeading');
+            if (!heading) return;
+            const titles = {
+                Seminar: 'Lectures Delivered',
+                Certificate: 'Certificates Received',
+                Achievement: 'Achievements'
+            };
+            heading.textContent = titles[type] || 'Lectures Delivered';
+        }
+
         function filterAndRender() {
             visibleRecordLimit = 10;
             const query = searchInput.value.trim().toLowerCase();
             const category = categoryFilter.value;
             const type = typeFilter.value;
+            updateSectionHeading(type);
 
             filteredData = trainingData.filter(item => {
                 const matchesCategory = !category || item.category === category;
@@ -1613,21 +1669,34 @@
         }
 
         function renderTrainingCard(item, index, typeKey) {
-            const isAchievement = (typeKey || item.type) === 'Achievement';
-            const achievementClass = isAchievement ? ' achievement-highlight' : '';
-            const achievementBadge = isAchievement ? '<span class="badge badge-achievement">Highlighted Achievement</span>' : '';
-            
+            const resolvedType = typeKey || item.type;
+            const isAchievement = resolvedType === 'Achievement';
+            const isCertificate = resolvedType === 'Certificate';
+            const cardTypeClass = isAchievement ? ' achievement-highlight' : isCertificate ? ' certificate-highlight' : '';
+            const typeBadge = isAchievement
+                ? '<span class="badge badge-achievement">Highlighted Achievement</span>'
+                : isCertificate
+                    ? '<span class="badge badge-certificate">Certificate</span>'
+                    : '';
+            const certificateLine = (isCertificate && item.certificateNo)
+                ? `<div class="certificate-line">Certificate No: ${item.certificateNo}</div>`
+                : '';
+
             return `
                 <div class="timeline-marker"><span class="marker-dot"></span></div>
-                <div class="timeline-card${achievementClass}">
+                <div class="timeline-card${cardTypeClass}">
                     <div class="training-top">
                         <div>
-                            ${achievementBadge}
+                            ${typeBadge}
                             <h3>${index}. ${item.title}</h3>
                             <p class="provider">${item.provider}</p>
                         </div>
-                        <div class="training-date">${formatDate(item.date)}</div>
+                        <div class="training-date-block">
+                            <div class="training-date">${formatDate(item.date)}</div>
+                            ${item.monogram ? `<img class="training-monogram" src="${item.monogram}" alt="${item.provider} seal" loading="lazy" decoding="async">` : ''}
+                        </div>
                     </div>
+                    ${certificateLine}
                     <p class="training-description">${item.description}</p>
                     <div class="gallery-grid">
                         ${item.images.map((src, idx) => `<div class="gallery-card"><img src="${src || placeholderImage()}" alt="${item.title} photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`).join('')}
