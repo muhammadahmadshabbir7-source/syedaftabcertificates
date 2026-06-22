@@ -1018,14 +1018,15 @@
             }
 
             .training-date-block {
-                align-items: flex-start;
                 flex-direction: row;
-                gap: 14px;
+                align-items: center;
+                gap: 10px;
+                margin-top: 4px;
             }
 
             .training-monogram {
-                max-width: 60px;
-                max-height: 60px;
+                max-width: 48px;
+                max-height: 48px;
             }
         }
 
@@ -1572,7 +1573,7 @@
             if (!heading) return;
             const titles = {
                 Seminar: 'Lectures Delivered',
-                Certificate: 'Certificates Received',
+                Certificate: 'Letter/Certificate of Appreciation Received',
                 Achievement: 'Achievements'
             };
             heading.textContent = titles[type] || 'Lectures Delivered';
@@ -1600,6 +1601,22 @@
             // Profile metrics removed to simplify executive presentation.
         }
 
+        const CERTIFICATE_CATEGORY_ORDER = [
+            { rank: 1, match: ['minister'] },
+            { rank: 2, match: ['federal government'] },
+            { rank: 3, match: ['ambassador', 'high commission'] },
+            { rank: 4, match: ['caa', 'paa'] },
+            { rank: 5, match: ['airline'] }
+        ];
+
+        function getCertificateCategoryRank(category) {
+            const normalized = (category || '').trim().toLowerCase();
+            for (const entry of CERTIFICATE_CATEGORY_ORDER) {
+                if (entry.match.some(keyword => normalized.includes(keyword))) return entry.rank;
+            }
+            return 999;
+        }
+
         function renderRecords() {
             recordsContainer.innerHTML = '';
             if (!filteredData.length) {
@@ -1614,10 +1631,17 @@
                 const typeA = typeOrder[a.type] || 999;
                 const typeB = typeOrder[b.type] || 999;
                 if (typeA !== typeB) return typeA - typeB;
-                
-                // Within same type, sort by category alphabetically
-                if (a.category !== b.category) return a.category.localeCompare(b.category);
-                
+
+                // Within same type, sort by category (certificates use a fixed priority order, others alphabetical)
+                if (a.category !== b.category) {
+                    if (typeA === typeOrder.Certificate) {
+                        const rankA = getCertificateCategoryRank(a.category);
+                        const rankB = getCertificateCategoryRank(b.category);
+                        if (rankA !== rankB) return rankA - rankB;
+                    }
+                    return a.category.localeCompare(b.category);
+                }
+
                 // Within same category, sort by date (newest first)
                 return new Date(b.date) - new Date(a.date);
             });
@@ -1646,14 +1670,22 @@
                 if (!groupedByTypeAndCategory[typeKey]) return;
                 
                 const categories = groupedByTypeAndCategory[typeKey];
-                const sortedCategories = Object.keys(categories).sort();
+                const sortedCategories = typeKey === 'Certificate'
+                    ? Object.keys(categories).sort((a, b) => {
+                        const rankA = getCertificateCategoryRank(a);
+                        const rankB = getCertificateCategoryRank(b);
+                        if (rankA !== rankB) return rankA - rankB;
+                        return a.localeCompare(b);
+                    })
+                    : Object.keys(categories).sort();
                 let typeIndex = 1; // Reset index for each type
-                
-                sortedCategories.forEach(category => {
+
+                sortedCategories.forEach((category, categoryIndex) => {
                     const categoryHeading = document.createElement('div');
                     categoryHeading.className = 'category-heading';
                     const typeLabel = typeKey !== 'Seminar' ? ` - ${typeKey}` : '';
-                    categoryHeading.innerHTML = `<h3 class="category-title">${category}${typeLabel}</h3>`;
+                    const numberPrefix = typeKey === 'Certificate' ? `${categoryIndex + 1}. ` : '';
+                    categoryHeading.innerHTML = `<h3 class="category-title">${numberPrefix}${category}${typeLabel}</h3>`;
                     recordsContainer.appendChild(categoryHeading);
 
                     const categoryItems = categories[category];
@@ -1689,7 +1721,7 @@
                         <div>
                             ${typeBadge}
                             <h3>${index}. ${item.title}</h3>
-                            <p class="provider">${item.provider}</p>
+                            ${isCertificate ? '' : `<p class="provider">${item.provider}</p>`}
                         </div>
                         <div class="training-date-block">
                             <div class="training-date">${formatDate(item.date)}</div>
@@ -1697,7 +1729,7 @@
                         </div>
                     </div>
                     ${certificateLine}
-                    <p class="training-description">${item.description}</p>
+                    ${isCertificate ? '' : `<p class="training-description">${item.description}</p>`}
                     <div class="gallery-grid">
                         ${item.images.map((src, idx) => `<div class="gallery-card"><img src="${src || placeholderImage()}" alt="${item.title} photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`).join('')}
                     </div>
