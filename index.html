@@ -1683,9 +1683,8 @@
                 sortedCategories.forEach((category, categoryIndex) => {
                     const categoryHeading = document.createElement('div');
                     categoryHeading.className = 'category-heading';
-                    const typeLabel = typeKey !== 'Seminar' ? ` - ${typeKey}` : '';
                     const numberPrefix = typeKey === 'Certificate' ? `${categoryIndex + 1}. ` : '';
-                    categoryHeading.innerHTML = `<h3 class="category-title">${numberPrefix}${category}${typeLabel}</h3>`;
+                    categoryHeading.innerHTML = `<h3 class="category-title">${numberPrefix}${category}</h3>`;
                     recordsContainer.appendChild(categoryHeading);
 
                     const categoryItems = categories[category];
