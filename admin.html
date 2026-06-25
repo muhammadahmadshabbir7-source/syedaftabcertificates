@@ -3133,6 +3133,22 @@
             `).join('');
         }
 
+        const CERTIFICATE_CATEGORY_ORDER = [
+            { rank: 1, match: ['minister'] },
+            { rank: 2, match: ['federal government'] },
+            { rank: 3, match: ['ambassador', 'high commission'] },
+            { rank: 4, match: ['caa', 'paa'] },
+            { rank: 5, match: ['airline'] }
+        ];
+
+        function getCertificateCategoryRank(category) {
+            const normalized = (category || '').trim().toLowerCase();
+            for (const entry of CERTIFICATE_CATEGORY_ORDER) {
+                if (entry.match.some(keyword => normalized.includes(keyword))) return entry.rank;
+            }
+            return 999;
+        }
+
         async function loadCertificateRecords({ reload = true } = {}) {
             const container = document.getElementById('certificateRecordsContainer');
             if (reload || isRecordsStale()) {
@@ -3146,9 +3162,29 @@
                 return;
             }
 
-            container.innerHTML = certificates.map(record => `
+            // Group by category, ordered the same way as the portfolio section
+            const byCategory = {};
+            certificates.forEach(record => {
+                const categoryKey = record.category || 'Uncategorized';
+                if (!byCategory[categoryKey]) byCategory[categoryKey] = [];
+                byCategory[categoryKey].push(record);
+            });
+
+            const sortedCategories = Object.keys(byCategory).sort((a, b) => {
+                const rankA = getCertificateCategoryRank(a);
+                const rankB = getCertificateCategoryRank(b);
+                if (rankA !== rankB) return rankA - rankB;
+                return a.localeCompare(b);
+            });
+
+            let overallIndex = 1;
+            container.innerHTML = sortedCategories.map((category, categoryIndex) => {
+                const categoryItems = [...byCategory[category]].sort((a, b) => new Date(b.date) - new Date(a.date));
+                const heading = `<div style="grid-column: 1 / -1; font-weight: 700; font-size: 1.05rem; margin: ${categoryIndex ? '12px' : '0'} 0 4px;">${categoryIndex + 1}. ${escapeHtml(category)}</div>`;
+                const cards = categoryItems.map(record => {
+                    const card = `
                 <div class="record-card">
-                    <h4>${escapeHtml(record.title)}</h4>
+                    <h4>${overallIndex}. ${escapeHtml(record.title)}</h4>
                     <div class="record-meta">${formatDate(record.date)} | ${escapeHtml(record.provider)}</div>
                     <div class="record-category">${escapeHtml(record.category)}</div>
                     ${record.certificateNo ? `<div style="color: var(--green); font-size: 0.85rem; margin-bottom: 8px;">Certificate No: ${escapeHtml(record.certificateNo)}</div>` : ''}
@@ -3157,7 +3193,12 @@
                         <button class="btn btn-danger btn-small" onclick="deleteRecord('${record.id}')">Delete</button>
                     </div>
                 </div>
-            `).join('');
+            `;
+                    overallIndex++;
+                    return card;
+                }).join('');
+                return heading + cards;
+            }).join('');
         }
 
         function openEditModal(recordId) {
