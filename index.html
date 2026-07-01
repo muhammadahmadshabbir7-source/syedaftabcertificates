@@ -470,6 +470,17 @@
             background: linear-gradient(90deg, rgba(37, 99, 235, 0.05) 0%, transparent 80%);
         }
 
+        .badge-course {
+            background: rgba(15, 118, 110, 0.12);
+            color: var(--teal);
+            border: 1px solid rgba(15, 118, 110, 0.25);
+        }
+
+        .course-highlight {
+            border-left: 4px solid var(--teal);
+            background: linear-gradient(90deg, rgba(15, 118, 110, 0.05) 0%, transparent 80%);
+        }
+
         .training-top h3 {
             font-size: 1.2rem;
             margin-bottom: 10px;
@@ -1142,6 +1153,7 @@
                         <option value="">All Types</option>
                         <option value="Seminar">Lectures</option>
                         <option value="Certificate">Certificates</option>
+                        <option value="Course">Courses/Trainings Completed</option>
                     </select>
                 </div>
                 <div class="button-group">
@@ -1402,7 +1414,8 @@
         }
 
         function getSemanticRecordKey(item) {
-            return [item.title, item.provider].join('|').toLowerCase();
+            const year = item.date ? String(item.date).slice(0, 4) : '';
+            return [item.title, item.provider, year].join('|').toLowerCase();
         }
 
         function dateSpecificity(dateString) {
@@ -1484,7 +1497,7 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !isLoadingMore) {
-                        const typeOrder = { 'Seminar': 1, 'Achievement': 2, 'Certificate': 3 };
+                        const typeOrder = { 'Seminar': 1, 'Achievement': 2, 'Certificate': 3, 'Course': 4 };
                         const sortedData = [...filteredData].sort((a, b) => {
                             const typeA = typeOrder[a.type] || 999;
                             const typeB = typeOrder[b.type] || 999;
@@ -1574,7 +1587,8 @@
             const titles = {
                 Seminar: 'Lectures Delivered',
                 Certificate: 'Letter/Certificate of Appreciation',
-                Achievement: 'Achievements'
+                Achievement: 'Achievements',
+                Course: 'Courses/Trainings Completed'
             };
             heading.textContent = titles[type] || 'Lectures Delivered';
         }
@@ -1625,8 +1639,8 @@
             }
             noResultsMessage.style.display = 'none';
 
-            // Sort by type first (Seminars -> Achievements -> Certificates), then by category, then by date
-            const typeOrder = { 'Seminar': 1, 'Achievement': 2, 'Certificate': 3 };
+            // Sort by type first (Seminars -> Achievements -> Certificates -> Courses), then by category, then by date
+            const typeOrder = { 'Seminar': 1, 'Achievement': 2, 'Certificate': 3, 'Course': 4 };
             const sortedData = [...filteredData].sort((a, b) => {
                 const typeA = typeOrder[a.type] || 999;
                 const typeB = typeOrder[b.type] || 999;
@@ -1664,7 +1678,7 @@
             });
 
             // Type order for rendering
-            const renderOrder = ['Seminar', 'Achievement', 'Certificate'];
+            const renderOrder = ['Seminar', 'Achievement', 'Certificate', 'Course'];
             
             renderOrder.forEach(typeKey => {
                 if (!groupedByTypeAndCategory[typeKey]) return;
@@ -1703,12 +1717,15 @@
             const resolvedType = typeKey || item.type;
             const isAchievement = resolvedType === 'Achievement';
             const isCertificate = resolvedType === 'Certificate';
-            const cardTypeClass = isAchievement ? ' achievement-highlight' : isCertificate ? ' certificate-highlight' : '';
+            const isCourse = resolvedType === 'Course';
+            const cardTypeClass = isAchievement ? ' achievement-highlight' : isCertificate ? ' certificate-highlight' : isCourse ? ' course-highlight' : '';
             const typeBadge = isAchievement
                 ? '<span class="badge badge-achievement">Highlighted Achievement</span>'
                 : isCertificate
                     ? '<span class="badge badge-certificate">Certificate</span>'
-                    : '';
+                    : isCourse
+                        ? '<span class="badge badge-course">Course / Training</span>'
+                        : '';
             const certificateLine = (isCertificate && item.certificateNo)
                 ? `<div class="certificate-line">Certificate No: ${item.certificateNo}</div>`
                 : '';
@@ -1728,7 +1745,7 @@
                         </div>
                     </div>
                     ${certificateLine}
-                    ${isCertificate ? '' : `<p class="training-description">${item.description}</p>`}
+                    ${(isCertificate) ? '' : `<p class="training-description">${item.description}</p>`}
                     <div class="gallery-grid">
                         ${item.images.map((src, idx) => `<div class="gallery-card"><img src="${src || placeholderImage()}" alt="${item.title} photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`).join('')}
                     </div>
