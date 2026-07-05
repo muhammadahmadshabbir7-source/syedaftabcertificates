@@ -1593,6 +1593,13 @@
                 </div>
                 <button class="btn btn-secondary" onclick="handleMigrateImages()" style="white-space: nowrap;">Migrate Images to Storage</button>
             </div>
+            <div style="margin-bottom: 20px; padding: 16px 20px; background: rgba(220,38,38,0.05); border: 1px solid rgba(220,38,38,0.15); border-radius: 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px;">
+                    <strong style="font-size: 14px;">Fix &amp; Clean Duplicate Records</strong>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Repairs records with mismatched internal IDs and removes duplicate rows caused by previous edit bugs. Run this once to clean up the database.</p>
+                </div>
+                <button class="btn btn-danger" onclick="handleCleanupDuplicates()" style="white-space: nowrap;">Fix Duplicates &amp; IDs</button>
+            </div>
             <div class="dashboard-section collapsible-section" id="seminarSection">
                 <div class="collapsible-header" onclick="toggleDashboardSection('seminarSection')">
                     <h3 class="section-title">Executive Seminars Timeline</h3>
@@ -2429,6 +2436,22 @@
                 if (result.migrated > 0) await loadAllRecords({ reload: true });
             } catch (err) {
                 alert('Migration failed: ' + err.message);
+            }
+        }
+
+        async function handleCleanupDuplicates() {
+            if (!confirm('This will:\n1. Fix records whose internal ID does not match their database row ID\n2. Remove duplicate rows caused by previous edit bugs (keeping the newest version)\n\nContinue?')) return;
+            try {
+                const result = await apiRequest('/api/cleanup-duplicates', { method: 'POST' });
+                const errMsg = result.errors && result.errors.length ? '\n\nErrors:\n' + result.errors.join('\n') : '';
+                alert(`Cleanup complete:\n• ${result.idFixed} record ID(s) corrected\n• ${result.duplicatesRemoved} duplicate row(s) removed${errMsg}`);
+                await loadAllRecords({ reload: true });
+                await Promise.all([
+                    loadCertificateRecords({ reload: false }),
+                    updateDashboard({ reload: false })
+                ]);
+            } catch (err) {
+                alert('Cleanup failed: ' + err.message);
             }
         }
 
@@ -3270,29 +3293,40 @@
             }
 
             const record = allRecords.find(r => r.id === currentEditingId);
-            if (record) {
-                record.title = document.getElementById('editTitle').value;
-                record.category = document.getElementById('editCategory').value;
-                record.provider = document.getElementById('editProvider').value;
-                record.certificateNo = document.getElementById('editCertificateNo').value;
-                record.date = document.getElementById('editDate').value;
-                record.description = document.getElementById('editDescription').value;
-                record.images = getImagePickerValues('edit');
-                record.monogram = getImagePickerValues('editMonogram')[0] || '';
-                removeDeletedRecordKey(getRecordKey(record));
+            if (!record) return;
 
+            const snapshot = { ...record, images: [...(record.images || [])] };
+
+            record.title = document.getElementById('editTitle').value;
+            record.category = document.getElementById('editCategory').value;
+            record.provider = document.getElementById('editProvider').value;
+            record.certificateNo = document.getElementById('editCertificateNo').value;
+            record.date = document.getElementById('editDate').value;
+            record.description = document.getElementById('editDescription').value;
+            record.images = getImagePickerValues('edit');
+            record.monogram = getImagePickerValues('editMonogram')[0] || '';
+            removeDeletedRecordKey(getRecordKey(record));
+
+            try {
                 await saveRecord(record);
-                clearImagePicker('edit');
-                clearImagePicker('editMonogram');
-                closeEditModal();
-                await Promise.all([
-                    loadAllRecords({ reload: false }),
-                    loadCertificateRecords({ reload: false }),
-                    updateDashboard({ reload: false })
-                ]);
-                populateCategoryDropdown();
-                populateCertCategoryDropdown();
+            } catch (err) {
+                Object.assign(record, snapshot);
+                alert('Save failed: ' + err.message);
+                return;
             }
+
+            clearImagePicker('edit');
+            clearImagePicker('editMonogram');
+            closeEditModal();
+
+            // Reload from DB so the display reflects exactly what was saved
+            await loadAllRecords({ reload: true });
+            await Promise.all([
+                loadCertificateRecords({ reload: false }),
+                updateDashboard({ reload: false })
+            ]);
+            populateCategoryDropdown();
+            populateCertCategoryDropdown();
         }
 
         async function deleteRecord(recordId) {
