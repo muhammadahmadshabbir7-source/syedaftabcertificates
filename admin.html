@@ -1769,8 +1769,8 @@
                             <input type="date" id="certDate" required>
                         </div>
                         <div class="form-group">
-                            <label for="certNumber">Certificate Number *</label>
-                            <input type="text" id="certNumber" required placeholder="Certificate number">
+                            <label for="certNumber">Certificate Number</label>
+                            <input type="text" id="certNumber" placeholder="Certificate number (optional)">
                         </div>
                         <div class="form-group full">
                             <label for="certDescription">Description *</label>
@@ -2337,6 +2337,31 @@
             });
         }
 
+        function compressImage(dataUrl, { maxPx = 1920, quality = 0.78, forceJpeg = true } = {}) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const scale = Math.min(1, maxPx / Math.max(img.width, img.height, 1));
+                    const w = Math.round(img.width * scale);
+                    const h = Math.round(img.height * scale);
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    if (forceJpeg) {
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillRect(0, 0, w, h);
+                    }
+                    ctx.drawImage(img, 0, 0, w, h);
+                    const fmt = forceJpeg ? 'image/jpeg' : 'image/png';
+                    const out = canvas.toDataURL(fmt, forceJpeg ? quality : undefined);
+                    resolve(out.length < dataUrl.length ? out : dataUrl);
+                };
+                img.onerror = () => resolve(dataUrl);
+                img.src = dataUrl;
+            });
+        }
+
         async function addFilesToImagePicker(key, fileList) {
             const files = Array.from(fileList || []).filter(file => file.type.startsWith('image/'));
             if (!files.length) return;
@@ -2352,18 +2377,27 @@
                 labelEl.style.pointerEvents = 'none';
             }
 
+            const isMonogram = !!pickerCfg.single;
             const errors = [];
             for (const file of files) {
                 if (file.size > 15_000_000) {
                     errors.push(`${file.name}: too large (max 15 MB)`);
                     continue;
                 }
-                if (labelSpan) labelSpan.textContent = `Uploading ${file.name}…`;
+                if (labelSpan) labelSpan.textContent = `Compressing ${file.name}…`;
                 try {
-                    const data = await readFileAsDataURL(file);
+                    const raw = await readFileAsDataURL(file);
+                    const compressed = await compressImage(raw, isMonogram
+                        ? { maxPx: 300, forceJpeg: false }
+                        : { maxPx: 1920, quality: 0.78, forceJpeg: true }
+                    );
+                    const uploadType = isMonogram ? 'image/png' : 'image/jpeg';
+                    const uploadExt  = isMonogram ? '.png' : '.jpg';
+                    const baseName   = file.name.replace(/\.[^.]+$/, '').replace(/[^a-zA-Z0-9._-]/g, '_');
+                    if (labelSpan) labelSpan.textContent = `Uploading ${file.name}…`;
                     const result = await apiRequest('/api/upload', {
                         method: 'POST',
-                        body: JSON.stringify({ filename: file.name, data, contentType: file.type })
+                        body: JSON.stringify({ filename: baseName + uploadExt, data: compressed, contentType: uploadType })
                     });
                     pickerCfg.items.push({ src: result.url, label: file.name, embedded: false });
                 } catch (err) {
@@ -2524,7 +2558,8 @@
         }
 
         function getSemanticRecordKey(item) {
-            return [item.title, item.provider].join('|').toLowerCase();
+            const year = item.date ? String(item.date).slice(0, 4) : '';
+            return [item.title, item.provider, year].join('|').toLowerCase();
         }
 
         function dateSpecificity(dateString) {
@@ -2920,10 +2955,10 @@
         }
 
         function populateEditCategoryDropdown() {
-            const categories = [...new Set(allRecords.map(r => r.category))].sort();
+            const categories = getAllCategories();
             const select = document.getElementById('editCategory');
             select.innerHTML = '';
-            
+
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
@@ -3250,8 +3285,11 @@
                 clearImagePicker('edit');
                 clearImagePicker('editMonogram');
                 closeEditModal();
-                await loadAllRecords({ reload: false });
-                await updateDashboard({ reload: false });
+                await Promise.all([
+                    loadAllRecords({ reload: false }),
+                    loadCertificateRecords({ reload: false }),
+                    updateDashboard({ reload: false })
+                ]);
                 populateCategoryDropdown();
                 populateCertCategoryDropdown();
             }
