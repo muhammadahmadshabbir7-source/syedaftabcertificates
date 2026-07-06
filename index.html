@@ -1150,10 +1150,10 @@
                 <div class="control-group">
                     <label for="typeFilter">Type filter</label>
                     <select id="typeFilter">
-                        <option value="">All Types</option>
-                        <option value="Seminar">Lectures</option>
+                        <!-- <option value="">All Types</option> -->
+                        <!-- <option value="Seminar">Lectures</option> -->
                         <option value="Certificate">Certificates</option>
-                        <option value="Course">Courses/Trainings Completed</option>
+                        <!-- <option value="Course">Courses/Trainings Completed</option> -->
                     </select>
                 </div>
                 <div class="button-group">
@@ -1367,7 +1367,8 @@
                     throw new Error('Unable to load database records');
                 }
                 const data = await response.json();
-                const nextData = deduplicateTrainingRecords((data.records || []).map(normalizeTrainingRecord));
+                const nextData = deduplicateTrainingRecords((data.records || []).map(normalizeTrainingRecord))
+                    .filter(record => record.type === 'Certificate');
                 const nextSignature = getTrainingDataSignature(nextData);
                 if (nextSignature === trainingDataSignature) {
                     return false;
