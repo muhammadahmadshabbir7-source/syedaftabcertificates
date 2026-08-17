@@ -1177,10 +1177,7 @@
                 <div class="control-group">
                     <label for="typeFilter">Type filter</label>
                     <select id="typeFilter">
-                        <option value="">All Types</option>
-                        <option value="Seminar">Lectures</option>
-                        <option value="Certificate">Certificates</option>
-                        <option value="Course" selected>Courses/Trainings Completed</option>
+                        <option value="Certificate" selected>Certificates</option>
                     </select>
                 </div>
                 <div class="button-group">
@@ -1507,17 +1504,12 @@
         let isLoadingMore = false;
 
         async function init() {
-            // If a ?type= param is in the URL, lock the view to that type and
-            // hide the search/filter controls so the page looks like a dedicated section.
-            const urlType = new URLSearchParams(window.location.search).get('type');
-            if (urlType) {
-                typeFilter.value = urlType;
-                // Hide only the type filter control so category/search remain usable
-                const typeFilterGroup = typeFilter.closest('.control-group');
-                if (typeFilterGroup) typeFilterGroup.style.display = 'none';
-            }
+            // This deployment is a dedicated certificates-only site: the type filter
+            // only offers "Certificates" and stays locked to it.
+            typeFilter.value = 'Certificate';
             await refreshTrainingData();
-            if (urlType) { populateCategoryOptions(); filterAndRender(); }
+            populateCategoryOptions();
+            filterAndRender();
             attachEventListeners();
             setupShowMoreToggle();
             setupLiveDataRefresh();
