@@ -599,8 +599,10 @@
         }
 
         .provider {
-            color: var(--indigo);
+            color: #d97706;
             font-size: 0.96rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
             margin-bottom: 6px;
         }
 
@@ -795,6 +797,216 @@
             border-radius: 999px;
             padding: 8px 14px;
             font-size: 0.8rem;
+        }
+
+        /* ── Manage Lectures portfolio-style display ── */
+        #lectureRecordsContainer {
+            display: block;
+        }
+
+        /* Textarea inline editor keeps sizing correct */
+        .cert-inline-input[rows] {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        /* ── Manage Achievements portfolio-style display ── */
+        #achievementRecordsContainer {
+            display: block;
+        }
+
+        .achievement-highlight {
+            border-left: 4px solid #fbbf24;
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.06) 0%, transparent 80%);
+        }
+
+        .course-highlight {
+            border-left: 4px solid var(--teal);
+            background: linear-gradient(90deg, rgba(15, 118, 110, 0.05) 0%, transparent 80%);
+        }
+
+        .badge-achievement {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
+            color: #b45309;
+            border: 1px solid rgba(217, 119, 6, 0.3);
+        }
+
+        .badge-course {
+            background: rgba(15, 118, 110, 0.12);
+            color: var(--teal);
+            border: 1px solid rgba(15, 118, 110, 0.25);
+        }
+
+        /* ── Manage Certificates portfolio-style display ── */
+        #certificateRecordsContainer {
+            display: block;
+        }
+
+        .certificate-highlight {
+            border-left: 4px solid var(--indigo);
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.05) 0%, transparent 80%);
+        }
+
+        .certificate-highlight .training-top {
+            margin-bottom: 6px;
+        }
+
+        .badge-certificate {
+            background: rgba(37, 99, 235, 0.12);
+            color: var(--indigo);
+            border: 1px solid rgba(37, 99, 235, 0.25);
+        }
+
+        .training-date-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .training-monogram {
+            max-width: 84px;
+            max-height: 84px;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            border: 2px solid rgba(37, 99, 235, 0.2);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1);
+            background: #fff;
+        }
+
+        .certificate-line {
+            color: var(--indigo);
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .cert-action-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(15, 23, 42, 0.07);
+        }
+
+        /* ── Per-field inline editing ── */
+        .cert-field-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .cert-field-row .cert-field-display {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .cert-pencil {
+            flex-shrink: 0;
+            background: none;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            color: #475569;
+            cursor: pointer;
+            font-size: 0.78rem;
+            padding: 3px 6px;
+            opacity: 0.85;
+            transition: opacity 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
+            line-height: 1;
+            align-self: center;
+        }
+
+        .cert-pencil:hover {
+            opacity: 1;
+            background: rgba(37, 99, 235, 0.1);
+            border-color: rgba(37, 99, 235, 0.3);
+            color: var(--indigo);
+        }
+
+        /* Pencil on the right column (date-block) sits below each item */
+        .cert-date-row,
+        .cert-monogram-row {
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .cert-date-row .cert-pencil,
+        .cert-monogram-row .cert-pencil {
+            align-self: flex-end;
+        }
+
+        /* Images row is column-stacked */
+        .cert-images-row {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 8px;
+        }
+
+        .cert-pencil-block {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            padding: 6px 14px;
+            border: 1px solid rgba(37, 99, 235, 0.22);
+            border-radius: 10px;
+            color: var(--indigo);
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+
+        .cert-pencil-block:hover {
+            opacity: 1;
+            background: rgba(37, 99, 235, 0.08);
+        }
+
+        .cert-cat-display {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 4px;
+        }
+
+        .cert-certno-empty {
+            font-size: 0.83rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .cert-inline-editor {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .cert-inline-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid var(--indigo);
+            border-radius: 10px;
+            background: #f8fafc;
+            font-size: 0.95rem;
+            color: var(--text);
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .cert-inline-input:focus {
+            outline: none;
+            border-color: var(--blue);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .cert-inline-actions {
+            display: flex;
+            gap: 8px;
         }
 
         .image-picker-block {
@@ -1556,12 +1768,25 @@
             </div>
         </div>
 
+        <!-- Inactivity warning toast -->
+        <div id="inactivityWarning" style="display:none; position:fixed; bottom:28px; right:28px; z-index:9999;
+             background:#1e293b; color:#f1f5f9; padding:16px 20px; border-radius:16px;
+             box-shadow:0 8px 32px rgba(0,0,0,0.35); font-size:0.92rem; max-width:320px;
+             border-left:4px solid #f59e0b;">
+            <div style="font-weight:700; margin-bottom:6px;">Session expiring</div>
+            <div id="inactivityCountdown" style="color:#94a3b8; margin-bottom:12px;">You will be signed out in 60 seconds due to inactivity.</div>
+            <button onclick="resetInactivityTimer()" style="background:#2563eb; color:#fff; border:none; border-radius:8px;
+                    padding:8px 16px; font-size:0.88rem; font-weight:600; cursor:pointer;">Stay Signed In</button>
+        </div>
+
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('dashboard')">Dashboard</button>
-            <button class="tab-btn" onclick="switchTab('add-seminar')">Add Seminar</button>
-            <button class="tab-btn" onclick="switchTab('add-achievement')">Add Achievement</button>
-            <button class="tab-btn" onclick="switchTab('add-certificate')">Add Certificate</button>
-            <button class="tab-btn" onclick="switchTab('manage-certificates')">Manage Certificates</button>
+            <button class="tab-btn" onclick="switchTab('add-seminar')">Add Lectures</button>
+            <button class="tab-btn" onclick="switchTab('add-achievement')">Add Letters/Certificate of Appreciation</button>
+            <button class="tab-btn" onclick="switchTab('add-certificate')">Add Courses/Trainings</button>
+            <button class="tab-btn" onclick="switchTab('manage-lectures')">Manage Lectures</button>
+            <button class="tab-btn" onclick="switchTab('manage-certificates')">Manage Letters/Certificate of Appreciation</button>
+            <button class="tab-btn" onclick="switchTab('manage-achievements')">Manage Courses/Trainings</button>
             <button class="tab-btn" onclick="switchTab('manage-categories')">Manage Categories</button>
             <button class="tab-btn" onclick="switchTab('manage')">Manage All</button>
         </div>
@@ -1629,8 +1854,8 @@
         <!-- Add Seminar Tab -->
         <div class="tab-content" id="add-seminar">
             <div class="form-container">
-                <h3 class="section-title">Add New Seminar</h3>
-                <div class="success-message" id="seminarSuccess">Seminar added successfully!</div>
+                <h3 class="section-title">Add New Lecture</h3>
+                <div class="success-message" id="seminarSuccess">Lecture added successfully!</div>
                 <form id="addSeminarForm" onsubmit="handleAddSeminar(event)">
                     <div class="form-grid">
                         <div class="form-group">
@@ -1682,7 +1907,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="resetSeminarForm()">Clear</button>
-                        <button type="submit" class="btn btn-primary">Add Seminar</button>
+                        <button type="submit" class="btn btn-primary">Add Lecture</button>
                     </div>
                 </form>
             </div>
@@ -1691,7 +1916,7 @@
         <!-- Add Achievement Tab -->
         <div class="tab-content" id="add-achievement">
             <div class="form-container">
-                <h3 class="section-title">Add New Achievement</h3>
+                <h3 class="section-title">Add New Letter/Certificate of Appreciation</h3>
                 <div class="success-message" id="achievementSuccess">Achievement added successfully!</div>
                 <form id="addAchievementForm" onsubmit="handleAddAchievement(event)">
                     <div class="form-grid">
@@ -1721,10 +1946,6 @@
                             <label for="achievementDate">Date *</label>
                             <input type="date" id="achievementDate" required>
                         </div>
-                        <div class="form-group full">
-                            <label for="achievementDescription">Description *</label>
-                            <textarea id="achievementDescription" required placeholder="Detailed description of the achievement"></textarea>
-                        </div>
                         <div class="form-group full image-picker-block">
                             <label>Photos</label>
                             <div class="image-picker-toolbar">
@@ -1741,10 +1962,26 @@
                             <textarea id="achievementImages" readonly placeholder="Saved images will appear here..."></textarea>
                             <div class="image-preview-grid" id="achievementImagePreview"></div>
                         </div>
+                        <div class="form-group full image-picker-block">
+                            <label>Monogram / Seal (shown below the date)</label>
+                            <div class="image-picker-toolbar">
+                                <label class="image-upload-btn">
+                                    <input type="file" id="achievementMonogramFiles" accept="image/*">
+                                    <span>Select From Computer</span>
+                                </label>
+                                <div class="image-path-add">
+                                    <input type="text" id="achievementMonogramPath" placeholder="Or type filename e.g. seal1.jpg">
+                                    <button type="button" class="btn btn-secondary btn-small" onclick="addManualImagePath('achievementMonogram')">Add Path</button>
+                                </div>
+                            </div>
+                            <p class="image-picker-hint">One small logo/seal image. Prefer an existing local filename over uploading a new file when possible.</p>
+                            <textarea id="achievementMonogramImages" readonly placeholder="Saved image will appear here..."></textarea>
+                            <div class="image-preview-grid" id="achievementMonogramPreview"></div>
+                        </div>
                     </div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="resetAchievementForm()">Clear</button>
-                        <button type="submit" class="btn btn-primary">Add Achievement</button>
+                        <button type="submit" class="btn btn-primary">Add Letter/Certificate of Appreciation</button>
                     </div>
                 </form>
             </div>
@@ -1753,7 +1990,7 @@
         <!-- Add Certificate Tab -->
         <div class="tab-content" id="add-certificate">
             <div class="form-container">
-                <h3 class="section-title">Add Profile Certificate</h3>
+                <h3 class="section-title">Add Course/Training</h3>
                 <div class="success-message" id="certSuccess">Certificate added successfully!</div>
                 <form id="addCertForm" onsubmit="handleAddCertificate(event)">
                     <div class="form-grid">
@@ -1778,10 +2015,6 @@
                         <div class="form-group">
                             <label for="certNumber">Certificate Number</label>
                             <input type="text" id="certNumber" placeholder="Certificate number (optional)">
-                        </div>
-                        <div class="form-group full">
-                            <label for="certDescription">Description *</label>
-                            <textarea id="certDescription" required placeholder="Certificate details"></textarea>
                         </div>
                         <div class="form-group full image-picker-block">
                             <label>Photos</label>
@@ -1818,7 +2051,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="resetCertForm()">Clear</button>
-                        <button type="submit" class="btn btn-primary">Add Certificate</button>
+                        <button type="submit" class="btn btn-primary">Add Course/Training</button>
                     </div>
                 </form>
             </div>
@@ -1827,8 +2060,24 @@
         <!-- Manage All Tab -->
         <div class="tab-content" id="manage-certificates">
             <div class="dashboard-section">
-                <h3 class="section-title">Manage Certificates</h3>
+                <h3 class="section-title">Manage Letters/Certificate of Appreciation</h3>
                 <div id="certificateRecordsContainer" class="records-grid"></div>
+            </div>
+        </div>
+
+        <!-- Manage Achievements Tab -->
+        <div class="tab-content" id="manage-achievements">
+            <div class="dashboard-section">
+                <h3 class="section-title">Manage Courses/Trainings</h3>
+                <div id="achievementRecordsContainer" class="records-grid"></div>
+            </div>
+        </div>
+
+        <!-- Manage Lectures Tab -->
+        <div class="tab-content" id="manage-lectures">
+            <div class="dashboard-section">
+                <h3 class="section-title">Manage Lectures</h3>
+                <div id="lectureRecordsContainer"></div>
             </div>
         </div>
 
@@ -1867,6 +2116,7 @@
             <h2>Edit Record</h2>
             <form id="editForm" onsubmit="handleEditSubmit(event)">
                 <div class="form-grid">
+                    <div id="editMetaSection" style="display:contents;">
                     <div class="form-group full">
                         <label for="editTitle">Title *</label>
                         <input type="text" id="editTitle" required>
@@ -1892,6 +2142,7 @@
                         <label for="editDescription">Description *</label>
                         <textarea id="editDescription" required></textarea>
                     </div>
+                    </div><!-- /editMetaSection -->
                     <div class="form-group full image-picker-block">
                         <label>Photos</label>
                         <div class="image-picker-toolbar">
@@ -1908,7 +2159,7 @@
                         <textarea id="editImages" readonly placeholder="Saved images will appear here..."></textarea>
                         <div class="image-preview-grid" id="editImagePreview"></div>
                     </div>
-                    <div class="form-group full image-picker-block">
+                    <div id="editMonogramSection" class="form-group full image-picker-block">
                         <label>Monogram / Seal (certificates only, shown below the date)</label>
                         <div class="image-picker-toolbar">
                             <label class="image-upload-btn">
@@ -1989,6 +2240,8 @@
                 if (activeId === 'dashboard') await updateDashboard({ reload: false });
                 else if (activeId === 'manage') await loadAllRecords({ reload: false });
                 else if (activeId === 'manage-certificates') await loadCertificateRecords({ reload: false });
+                else if (activeId === 'manage-achievements') await loadAchievementRecords({ reload: false });
+                else if (activeId === 'manage-lectures') await loadLectureRecords({ reload: false });
                 else if (activeId === 'manage-categories') renderCategories();
                 populateCategoryDropdown();
                 populateCertCategoryDropdown();
@@ -2283,6 +2536,7 @@
             document.getElementById('authLoading').style.display = 'none';
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('adminPanel').style.display = 'block';
+            startInactivityWatch();
         }
 
         function wait(ms) {
@@ -2300,6 +2554,7 @@
         const imagePickerConfig = {
             seminar: { fileInputId: 'seminarImageFiles', pathInputId: 'seminarImagePath', textareaId: 'seminarImages', previewId: 'seminarImagePreview', items: [] },
             achievement: { fileInputId: 'achievementImageFiles', pathInputId: 'achievementImagePath', textareaId: 'achievementImages', previewId: 'achievementImagePreview', items: [] },
+            achievementMonogram: { fileInputId: 'achievementMonogramFiles', pathInputId: 'achievementMonogramPath', textareaId: 'achievementMonogramImages', previewId: 'achievementMonogramPreview', items: [], single: true },
             certificate: { fileInputId: 'certImageFiles', pathInputId: 'certImagePath', textareaId: 'certImages', previewId: 'certImagePreview', items: [] },
             edit: { fileInputId: 'editImageFiles', pathInputId: 'editImagePath', textareaId: 'editImages', previewId: 'editImagePreview', items: [] },
             certMonogram: { fileInputId: 'certMonogramFiles', pathInputId: 'certMonogramPath', textareaId: 'certMonogramImages', previewId: 'certMonogramPreview', items: [], single: true },
@@ -2448,6 +2703,8 @@
                 await loadAllRecords({ reload: true });
                 await Promise.all([
                     loadCertificateRecords({ reload: false }),
+                    loadAchievementRecords({ reload: false }),
+                    loadLectureRecords({ reload: false }),
                     updateDashboard({ reload: false })
                 ]);
             } catch (err) {
@@ -2524,6 +2781,28 @@
             return '_' + Math.random().toString(36).substr(2, 9);
         }
 
+        // Derive a human-readable ID from the first uploaded image's original filename.
+        // Falls back to a random ID when no image has been added to the picker.
+        function generateIdFromImage(pickerKey) {
+            const items = imagePickerConfig[pickerKey]?.items || [];
+            const label = items[0]?.label;
+            if (label) {
+                const base = label
+                    .replace(/\.[^.]+$/, '')          // strip extension
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')      // non-alphanumeric → hyphen
+                    .replace(/^-+|-+$/g, '')           // trim leading/trailing hyphens
+                    .slice(0, 50);                     // cap length
+                if (base) {
+                    // Ensure uniqueness against currently loaded records
+                    if (!allRecords.some(r => r.id === base)) return base;
+                    const suffix = '-' + Math.random().toString(36).substr(2, 4);
+                    return base + suffix;
+                }
+            }
+            return generateId();
+        }
+
         async function handleLogin(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
@@ -2545,6 +2824,7 @@
         }
 
         async function handleLogout() {
+            stopInactivityWatch();
             stopBackgroundSync();
             await apiRequest('/api/auth/logout', { method: 'POST' }).catch(() => {});
             showLoginScreen();
@@ -2569,6 +2849,10 @@
                 await loadAllRecords();
             } else if (tabName === 'manage-certificates') {
                 await loadCertificateRecords();
+            } else if (tabName === 'manage-achievements') {
+                await loadAchievementRecords();
+            } else if (tabName === 'manage-lectures') {
+                await loadLectureRecords();
             } else if (tabName === 'manage-categories') {
                 await loadCategories();
             } else if (tabName === 'add-certificate') {
@@ -2693,7 +2977,7 @@
             }
             
             const newRecord = {
-                id: generateId(),
+                id: generateIdFromImage('seminar'),
                 title: document.getElementById('seminarTitle').value,
                 category: category,
                 provider: document.getElementById('seminarProvider').value,
@@ -2716,12 +3000,15 @@
             hideNewCategoryPanel();
             clearImagePicker('seminar');
             populateCategoryDropdown();
-            await updateDashboard({ reload: false });
+            await Promise.all([
+                loadLectureRecords({ reload: false }),
+                updateDashboard({ reload: false })
+            ]);
         }
 
         async function handleAddAchievement(event) {
             event.preventDefault();
-            if (isPickerUploading('achievement')) {
+            if (isPickerUploading('achievement', 'achievementMonogram')) {
                 alert('Please wait for the image upload to finish before saving.');
                 return;
             }
@@ -2733,23 +3020,24 @@
                 showNewAchievementCategoryPanel();
                 return;
             }
-            
+
             if (!category) {
                 alert('Please select or create a category');
                 return;
             }
-            
+
             const newRecord = {
-                id: generateId(),
+                id: generateIdFromImage('achievement'),
                 title: document.getElementById('achievementTitle').value,
+                type: 'Certificate',
                 category: category,
                 provider: document.getElementById('achievementProvider').value,
                 date: document.getElementById('achievementDate').value,
                 duration: '1 Day',
-                description: document.getElementById('achievementDescription').value,
+                description: '',
                 certificateNo: '',
                 images: getImagePickerValues('achievement'),
-                type: 'Achievement'
+                monogram: getImagePickerValues('achievementMonogram')[0] || ''
             };
 
             removeDeletedRecordKey(getRecordKey(newRecord));
@@ -2762,8 +3050,12 @@
             document.getElementById('addAchievementForm').reset();
             hideNewAchievementCategoryPanel();
             clearImagePicker('achievement');
+            clearImagePicker('achievementMonogram');
             populateCategoryDropdown();
-            await updateDashboard({ reload: false });
+            await Promise.all([
+                loadAchievementRecords({ reload: false }),
+                updateDashboard({ reload: false })
+            ]);
         }
 
         function showNewCategoryPanel() {
@@ -2887,13 +3179,13 @@
             const successDiv = document.getElementById('certSuccess');
 
             const newRecord = {
-                id: generateId(),
+                id: generateIdFromImage('certificate'),
                 title: document.getElementById('certTitle').value,
                 category: document.getElementById('certCategory').value,
                 provider: document.getElementById('certProvider').value,
                 date: document.getElementById('certDate').value,
                 duration: '1 Day',
-                description: document.getElementById('certDescription').value,
+                description: '',
                 certificateNo: document.getElementById('certNumber').value,
                 images: getImagePickerValues('certificate'),
                 monogram: getImagePickerValues('certMonogram')[0] || '',
@@ -3043,7 +3335,7 @@
             const recent = profileCertificates.slice(-5).reverse();
             container.innerHTML = recent.length
                 ? recent.map(record => renderDashboardCard(record, true)).join('')
-                : '<div class="empty-state"><p>No profile certificates yet. Add one from the Add Certificate tab.</p></div>';
+                : '<div class="empty-state"><p>No profile certificates yet. Add one from the Add Letters/Certificate of Appreciation or Add Courses/Trainings tab.</p></div>';
         }
 
         function groupRecordsByCategory(records) {
@@ -3066,7 +3358,7 @@
             const container = document.getElementById('dashboardSeminars');
 
             if (!seminars.length) {
-                container.innerHTML = '<div class="empty-state"><p>No seminars yet. Add one from the Add Seminar tab.</p></div>';
+                container.innerHTML = '<div class="empty-state"><p>No seminars yet. Add one from the Add Lectures tab.</p></div>';
                 return;
             }
 
@@ -3192,11 +3484,12 @@
         }
 
         const CERTIFICATE_CATEGORY_ORDER = [
-            { rank: 1, match: ['minister'] },
-            { rank: 2, match: ['federal government'] },
-            { rank: 3, match: ['ambassador', 'high commission'] },
-            { rank: 4, match: ['caa', 'paa'] },
-            { rank: 5, match: ['airline'] }
+            { rank: 1, match: ['president', 'prime minister'] },
+            { rank: 2, match: ['minister'] },
+            { rank: 3, match: ['federal government'] },
+            { rank: 4, match: ['ambassador', 'high commission'] },
+            { rank: 5, match: ['caa', 'paa'] },
+            { rank: 6, match: ['airline'] }
         ];
 
         function getCertificateCategoryRank(category) {
@@ -3216,11 +3509,10 @@
             const certificates = allRecords.filter(record => record.type === 'Certificate');
 
             if (certificates.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>No certificates found. Add one from the Add Certificate tab.</p></div>';
+                container.innerHTML = '<div class="empty-state"><p>No certificates found. Add one from the Add Letters/Certificate of Appreciation or Add Courses/Trainings tab.</p></div>';
                 return;
             }
 
-            // Group by category, ordered the same way as the portfolio section
             const byCategory = {};
             certificates.forEach(record => {
                 const categoryKey = record.category || 'Uncategorized';
@@ -3238,20 +3530,71 @@
             let overallIndex = 1;
             container.innerHTML = sortedCategories.map((category, categoryIndex) => {
                 const categoryItems = [...byCategory[category]].sort((a, b) => new Date(b.date) - new Date(a.date));
-                const heading = `<div style="grid-column: 1 / -1; font-weight: 700; font-size: 1.05rem; margin: ${categoryIndex ? '12px' : '0'} 0 4px;">${categoryIndex + 1}. ${escapeHtml(category)}</div>`;
+                const heading = `
+                    <div class="category-heading" style="margin: ${categoryIndex ? '28px' : '0'} 0 16px;">
+                        <span class="category-title">${categoryIndex + 1}. ${escapeHtml(category)}</span>
+                    </div>`;
                 const cards = categoryItems.map(record => {
+                    const images = Array.isArray(record.images) ? record.images.filter(Boolean) : [];
+                    const galleryHtml = images.length
+                        ? `<div class="gallery-grid">${images.map((src, idx) =>
+                            `<div class="gallery-card"><img src="${escapeHtml(src)}" alt="Photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`
+                          ).join('')}</div>`
+                        : '';
+
+                    const monogramContent = record.monogram
+                        ? `<img class="training-monogram" src="${escapeHtml(record.monogram)}" alt="${escapeHtml(record.provider || '')} seal" loading="lazy" decoding="async">`
+                        : '<span class="cert-certno-empty">No monogram</span>';
+                    const rid = escapeHtml(record.id);
+
                     const card = `
-                <div class="record-card">
-                    <h4>${overallIndex}. ${escapeHtml(record.title)}</h4>
-                    <div class="record-meta">${formatDate(record.date)} | ${escapeHtml(record.provider)}</div>
-                    <div class="record-category">${escapeHtml(record.category)}</div>
-                    ${record.certificateNo ? `<div style="color: var(--green); font-size: 0.85rem; margin-bottom: 8px;">Certificate No: ${escapeHtml(record.certificateNo)}</div>` : ''}
-                    <div class="action-buttons">
-                        <button class="btn btn-secondary btn-small" onclick="openEditModal('${record.id}')">Edit</button>
-                        <button class="btn btn-danger btn-small" onclick="deleteRecord('${record.id}')">Delete</button>
-                    </div>
-                </div>
-            `;
+                        <div class="timeline-item" style="margin-bottom: 22px;">
+                            <div class="timeline-marker"><span class="marker-dot"></span></div>
+                            <div class="timeline-card certificate-highlight cert-card" style="position: relative;" data-record-id="${rid}">
+                                <div class="training-top">
+                                    <div style="flex:1;min-width:0;">
+                                        <span class="badge badge-certificate">Certificate</span>
+
+                                        <div class="cert-field-row" data-field="title">
+                                            <h3 class="cert-field-display" style="margin-bottom:6px;">${overallIndex}. ${escapeHtml(record.title)}</h3>
+                                            <button class="cert-pencil" onclick="certEditField('${rid}','title')" title="Edit title">✏️</button>
+                                        </div>
+
+                                        <div class="cert-field-row" data-field="provider">
+                                            <p class="provider cert-field-display" style="margin-bottom:4px;">${escapeHtml(record.provider || '')}</p>
+                                            <button class="cert-pencil" onclick="certEditField('${rid}','provider')" title="Edit provider">✏️</button>
+                                        </div>
+
+                                        <div class="cert-field-row" data-field="category">
+                                            <span class="cert-cat-display cert-field-display">${escapeHtml(record.category || '')}</span>
+                                            <button class="cert-pencil" onclick="certEditField('${rid}','category')" title="Edit category">✏️</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="training-date-block">
+                                        <div class="cert-field-row cert-date-row" data-field="date">
+                                            <div class="training-date cert-field-display">${formatDate(record.date)}</div>
+                                            <button class="cert-pencil" onclick="certEditField('${rid}','date')" title="Edit date">✏️</button>
+                                        </div>
+                                        <div class="cert-field-row cert-monogram-row" data-field="monogram">
+                                            <div class="cert-field-display">${monogramContent}</div>
+                                            <button class="cert-pencil" onclick="certEditField('${rid}','monogram')" title="Edit monogram">✏️</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                ${record.certificateNo ? `<div class="certificate-line" style="margin-bottom:14px;">Certificate No: ${escapeHtml(record.certificateNo)}</div>` : ''}
+
+                                <div class="cert-field-row cert-images-row" data-field="images">
+                                    <div class="cert-field-display" style="width:100%;">${galleryHtml}</div>
+                                    <button class="cert-pencil cert-pencil-block" onclick="certEditField('${rid}','images')">✏️ Edit Images &amp; Monogram</button>
+                                </div>
+
+                                <div class="cert-action-bar">
+                                    <button class="btn btn-danger btn-small" onclick="deleteRecord('${rid}')">Delete</button>
+                                </div>
+                            </div>
+                        </div>`;
                     overallIndex++;
                     return card;
                 }).join('');
@@ -3259,11 +3602,526 @@
             }).join('');
         }
 
-        function openEditModal(recordId) {
+        // ── Per-field inline edit for Manage Certificates ──
+
+        function certEditField(recordId, field) {
+            const card = document.querySelector(`.cert-card[data-record-id="${recordId}"]`);
+            if (!card) return;
+            const record = allRecords.find(r => r.id === recordId);
+            if (!record) return;
+
+            // Images and monogram open the modal showing only the image pickers
+            if (field === 'images' || field === 'monogram') {
+                openEditModal(recordId, true);
+                return;
+            }
+
+            const fieldRow = card.querySelector(`[data-field="${field}"]`);
+            if (!fieldRow || fieldRow.querySelector('.cert-inline-editor')) return;
+
+            const displayEl = fieldRow.querySelector('.cert-field-display');
+            const pencilBtn = fieldRow.querySelector('.cert-pencil');
+            if (!displayEl) return;
+
+            displayEl.style.display = 'none';
+            if (pencilBtn) pencilBtn.style.display = 'none';
+
+            let inputHtml;
+            if (field === 'title') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.title)}" maxlength="500">`;
+            } else if (field === 'provider') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.provider || '')}" maxlength="100" placeholder="Provider / Organisation">`;
+            } else if (field === 'certificateNo') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.certificateNo || '')}" maxlength="80" placeholder="e.g. CERT-2024-001">`;
+            } else if (field === 'date') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.date || '')}" placeholder="YYYY or YYYY-MM-DD" maxlength="20">`;
+            } else if (field === 'category') {
+                const cats = getAllCategories();
+                const opts = cats.map(c => `<option value="${escapeHtml(c)}"${c === record.category ? ' selected' : ''}>${escapeHtml(c)}</option>`).join('');
+                inputHtml = `<select class="cert-inline-input">${opts}</select>`;
+            } else {
+                displayEl.style.display = '';
+                if (pencilBtn) pencilBtn.style.display = '';
+                return;
+            }
+
+            const editor = document.createElement('div');
+            editor.className = 'cert-inline-editor';
+            editor.innerHTML = `
+                ${inputHtml}
+                <div class="cert-inline-actions">
+                    <button class="btn btn-primary btn-small" onclick="certSaveField('${escapeHtml(recordId)}','${field}',this)">✓ Save</button>
+                    <button class="btn btn-secondary btn-small" onclick="certCancelField('${escapeHtml(recordId)}','${field}')">✗ Cancel</button>
+                </div>`;
+            fieldRow.appendChild(editor);
+            editor.querySelector('.cert-inline-input')?.focus();
+        }
+
+        async function certSaveField(recordId, field, btnEl) {
+            const card = document.querySelector(`.cert-card[data-record-id="${recordId}"]`);
+            if (!card) return;
+            const record = allRecords.find(r => r.id === recordId);
+            if (!record) return;
+
+            const fieldRow = card.querySelector(`[data-field="${field}"]`);
+            if (!fieldRow) return;
+
+            const input = fieldRow.querySelector('.cert-inline-input');
+            if (!input) return;
+
+            const newValue = input.value.trim !== undefined ? input.value.trim() : input.value;
+
+            const origText = btnEl.textContent;
+            btnEl.textContent = '…';
+            btnEl.disabled = true;
+
+            const snapshot = { ...record };
+            record[field] = newValue;
+
+            try {
+                await saveRecord(record);
+            } catch (err) {
+                Object.assign(record, snapshot);
+                alert('Save failed: ' + err.message);
+                btnEl.textContent = origText;
+                btnEl.disabled = false;
+                return;
+            }
+
+            await loadCertificateRecords({ reload: false });
+        }
+
+        function certCancelField(recordId, field) {
+            const card = document.querySelector(`.cert-card[data-record-id="${recordId}"]`);
+            if (!card) return;
+            const fieldRow = card.querySelector(`[data-field="${field}"]`);
+            if (!fieldRow) return;
+
+            const displayEl = fieldRow.querySelector('.cert-field-display');
+            const pencilBtn = fieldRow.querySelector('.cert-pencil');
+            const editor = fieldRow.querySelector('.cert-inline-editor');
+
+            if (editor) editor.remove();
+            if (displayEl) displayEl.style.display = '';
+            if (pencilBtn) pencilBtn.style.display = '';
+        }
+
+        async function loadAchievementRecords({ reload = true } = {}) {
+            const container = document.getElementById('achievementRecordsContainer');
+            if (reload || isRecordsStale()) {
+                container.innerHTML = loadingHTML('Loading achievements...');
+                await loadRecords();
+            }
+            const achievements = allRecords.filter(r => r.type === 'Achievement' || r.type === 'Course');
+
+            if (achievements.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No courses or trainings found.</p></div>';
+                return;
+            }
+
+            const byCategory = {};
+            achievements.forEach(record => {
+                const key = record.category || 'Uncategorized';
+                if (!byCategory[key]) byCategory[key] = [];
+                byCategory[key].push(record);
+            });
+
+            const sortedCategories = Object.keys(byCategory).sort((a, b) => a.localeCompare(b));
+
+            let overallIndex = 1;
+            container.innerHTML = sortedCategories.map((category, categoryIndex) => {
+                const items = [...byCategory[category]].sort((a, b) => new Date(b.date) - new Date(a.date));
+                const heading = `
+                    <div class="category-heading" style="margin: ${categoryIndex ? '28px' : '0'} 0 16px;">
+                        <span class="category-title">${categoryIndex + 1}. ${escapeHtml(category)}</span>
+                    </div>`;
+                const cards = items.map(record => {
+                    const isCourse = record.type === 'Course';
+                    const highlightClass = isCourse ? 'course-highlight' : 'achievement-highlight';
+                    const badgeHtml = isCourse
+                        ? '<span class="badge badge-course">Course / Training</span>'
+                        : '<span class="badge badge-achievement">Achievement</span>';
+
+                    const images = Array.isArray(record.images) ? record.images.filter(Boolean) : [];
+                    const galleryHtml = images.length
+                        ? `<div class="gallery-grid">${images.map((src, idx) =>
+                            `<div class="gallery-card"><img src="${escapeHtml(src)}" alt="Photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`
+                          ).join('')}</div>`
+                        : '';
+                    const monogramContent = record.monogram
+                        ? `<img class="training-monogram" src="${escapeHtml(record.monogram)}" alt="${escapeHtml(record.provider || '')} seal" loading="lazy" decoding="async">`
+                        : '<span class="cert-certno-empty">No monogram</span>';
+                    const rid = escapeHtml(record.id);
+
+                    const card = `
+                        <div class="timeline-item" style="margin-bottom: 22px;">
+                            <div class="timeline-marker"><span class="marker-dot"></span></div>
+                            <div class="timeline-card ${highlightClass} ach-card" style="position: relative;" data-record-id="${rid}">
+                                <div class="training-top">
+                                    <div style="flex:1;min-width:0;">
+                                        <div class="cert-field-row" style="margin-bottom:10px;" data-field="type">
+                                            <div class="cert-field-display">${badgeHtml}</div>
+                                            <button class="cert-pencil" onclick="achEditField('${rid}','type')" title="Change type">✏️</button>
+                                        </div>
+
+                                        <div class="cert-field-row" data-field="title">
+                                            <h3 class="cert-field-display" style="margin-bottom:6px;">${overallIndex}. ${escapeHtml(record.title)}</h3>
+                                            <button class="cert-pencil" onclick="achEditField('${rid}','title')" title="Edit title">✏️</button>
+                                        </div>
+
+                                        <div class="cert-field-row" data-field="provider">
+                                            <p class="provider cert-field-display" style="margin-bottom:4px;">${escapeHtml(record.provider || '')}</p>
+                                            <button class="cert-pencil" onclick="achEditField('${rid}','provider')" title="Edit provider">✏️</button>
+                                        </div>
+
+                                        <div class="cert-field-row" data-field="category">
+                                            <span class="cert-cat-display cert-field-display">${escapeHtml(record.category || '')}</span>
+                                            <button class="cert-pencil" onclick="achEditField('${rid}','category')" title="Edit category">✏️</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="training-date-block">
+                                        <div class="cert-field-row cert-date-row" data-field="date">
+                                            <div class="training-date cert-field-display">${formatDate(record.date)}</div>
+                                            <button class="cert-pencil" onclick="achEditField('${rid}','date')" title="Edit date">✏️</button>
+                                        </div>
+                                        <div class="cert-field-row cert-monogram-row" data-field="monogram">
+                                            <div class="cert-field-display">${monogramContent}</div>
+                                            <button class="cert-pencil" onclick="achEditField('${rid}','monogram')" title="Edit monogram">✏️</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="cert-field-row cert-images-row" data-field="images">
+                                    <div class="cert-field-display" style="width:100%;">${galleryHtml}</div>
+                                    <button class="cert-pencil cert-pencil-block" onclick="achEditField('${rid}','images')">✏️ Edit Images &amp; Monogram</button>
+                                </div>
+
+                                <div class="cert-action-bar">
+                                    <button class="btn btn-danger btn-small" onclick="deleteRecord('${rid}')">Delete</button>
+                                </div>
+                            </div>
+                        </div>`;
+                    overallIndex++;
+                    return card;
+                }).join('');
+                return heading + cards;
+            }).join('');
+        }
+
+        // ── Per-field inline edit for Manage Achievements ──
+
+        function achEditField(recordId, field) {
+            const card = document.querySelector(`.ach-card[data-record-id="${recordId}"]`);
+            if (!card) return;
+            const record = allRecords.find(r => r.id === recordId);
+            if (!record) return;
+
+            if (field === 'images' || field === 'monogram') {
+                openEditModal(recordId, true);
+                return;
+            }
+
+            const fieldRow = card.querySelector(`[data-field="${field}"]`);
+            if (!fieldRow || fieldRow.querySelector('.cert-inline-editor')) return;
+
+            const displayEl = fieldRow.querySelector('.cert-field-display');
+            const pencilBtn = fieldRow.querySelector('.cert-pencil');
+            if (!displayEl) return;
+
+            displayEl.style.display = 'none';
+            if (pencilBtn) pencilBtn.style.display = 'none';
+
+            let inputHtml;
+            if (field === 'title') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.title)}" maxlength="500">`;
+            } else if (field === 'provider') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.provider || '')}" maxlength="100" placeholder="Provider / Organisation">`;
+            } else if (field === 'date') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.date || '')}" placeholder="YYYY or YYYY-MM-DD" maxlength="20">`;
+            } else if (field === 'category') {
+                const cats = getAllCategories();
+                const opts = cats.map(c => `<option value="${escapeHtml(c)}"${c === record.category ? ' selected' : ''}>${escapeHtml(c)}</option>`).join('');
+                inputHtml = `<select class="cert-inline-input">${opts}</select>`;
+            } else if (field === 'type') {
+                const types = ['Achievement', 'Course'];
+                const opts = types.map(t => `<option value="${t}"${t === record.type ? ' selected' : ''}>${t === 'Course' ? 'Course / Training' : 'Achievement'}</option>`).join('');
+                inputHtml = `<select class="cert-inline-input">${opts}</select>`;
+            } else {
+                displayEl.style.display = '';
+                if (pencilBtn) pencilBtn.style.display = '';
+                return;
+            }
+
+            const editor = document.createElement('div');
+            editor.className = 'cert-inline-editor';
+            editor.innerHTML = `
+                ${inputHtml}
+                <div class="cert-inline-actions">
+                    <button class="btn btn-primary btn-small" onclick="achSaveField('${escapeHtml(recordId)}','${field}',this)">✓ Save</button>
+                    <button class="btn btn-secondary btn-small" onclick="achCancelField('${escapeHtml(recordId)}','${field}')">✗ Cancel</button>
+                </div>`;
+            fieldRow.appendChild(editor);
+            editor.querySelector('.cert-inline-input')?.focus();
+        }
+
+        async function achSaveField(recordId, field, btnEl) {
+            const card = document.querySelector(`.ach-card[data-record-id="${recordId}"]`);
+            if (!card) return;
+            const record = allRecords.find(r => r.id === recordId);
+            if (!record) return;
+
+            const fieldRow = card.querySelector(`[data-field="${field}"]`);
+            if (!fieldRow) return;
+
+            const input = fieldRow.querySelector('.cert-inline-input');
+            if (!input) return;
+
+            const newValue = input.value.trim !== undefined ? input.value.trim() : input.value;
+
+            const origText = btnEl.textContent;
+            btnEl.textContent = '…';
+            btnEl.disabled = true;
+
+            const snapshot = { ...record };
+            record[field] = newValue;
+
+            try {
+                await saveRecord(record);
+            } catch (err) {
+                Object.assign(record, snapshot);
+                alert('Save failed: ' + err.message);
+                btnEl.textContent = origText;
+                btnEl.disabled = false;
+                return;
+            }
+
+            await loadAchievementRecords({ reload: false });
+        }
+
+        function achCancelField(recordId, field) {
+            const card = document.querySelector(`.ach-card[data-record-id="${recordId}"]`);
+            if (!card) return;
+            const fieldRow = card.querySelector(`[data-field="${field}"]`);
+            if (!fieldRow) return;
+
+            const displayEl = fieldRow.querySelector('.cert-field-display');
+            const pencilBtn = fieldRow.querySelector('.cert-pencil');
+            const editor = fieldRow.querySelector('.cert-inline-editor');
+
+            if (editor) editor.remove();
+            if (displayEl) displayEl.style.display = '';
+            if (pencilBtn) pencilBtn.style.display = '';
+        }
+
+        // ── Manage Lectures ──
+
+        async function loadLectureRecords({ reload = true } = {}) {
+            const container = document.getElementById('lectureRecordsContainer');
+            if (reload || isRecordsStale()) {
+                container.innerHTML = loadingHTML('Loading lectures...');
+                await loadRecords();
+            }
+            const lectures = allRecords.filter(r => r.type === 'Seminar');
+
+            if (lectures.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No lectures found. Add one from the Add Lectures tab.</p></div>';
+                return;
+            }
+
+            const byCategory = {};
+            lectures.forEach(record => {
+                const key = record.category || 'Uncategorized';
+                if (!byCategory[key]) byCategory[key] = [];
+                byCategory[key].push(record);
+            });
+
+            const sortedCategories = Object.keys(byCategory).sort((a, b) => a.localeCompare(b));
+
+            let overallIndex = 1;
+            container.innerHTML = sortedCategories.map((category, categoryIndex) => {
+                const items = [...byCategory[category]].sort((a, b) => new Date(b.date) - new Date(a.date));
+                const heading = `
+                    <div class="category-heading" style="margin: ${categoryIndex ? '28px' : '0'} 0 16px;">
+                        <span class="category-title">${categoryIndex + 1}. ${escapeHtml(category)}</span>
+                    </div>`;
+                const cards = items.map(record => {
+                    const images = Array.isArray(record.images) ? record.images.filter(Boolean) : [];
+                    const galleryHtml = images.length
+                        ? `<div class="gallery-grid">${images.map((src, idx) =>
+                            `<div class="gallery-card"><img src="${escapeHtml(src)}" alt="Photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`
+                          ).join('')}</div>`
+                        : '';
+                    const monogramContent = record.monogram
+                        ? `<div class="cert-monogram-row"><img class="training-monogram" src="${escapeHtml(record.monogram)}" alt="${escapeHtml(record.provider || '')} seal" loading="lazy" decoding="async"></div>`
+                        : '';
+                    const descriptionHtml = record.description
+                        ? `<p class="training-description cert-field-display" style="margin-bottom:18px;">${escapeHtml(record.description)}</p>`
+                        : `<span class="cert-certno-empty cert-field-display">+ Add description</span>`;
+                    const rid = escapeHtml(record.id);
+
+                    const card = `
+                        <div class="timeline-item" style="margin-bottom: 22px;">
+                            <div class="timeline-marker"><span class="marker-dot"></span></div>
+                            <div class="timeline-card lct-card" style="position: relative;" data-record-id="${rid}">
+                                <div class="training-top">
+                                    <div style="flex:1;min-width:0;">
+                                        <div class="cert-field-row" data-field="title">
+                                            <h3 class="cert-field-display" style="margin-bottom:6px;">${overallIndex}. ${escapeHtml(record.title)}</h3>
+                                            <button class="cert-pencil" onclick="lctEditField('${rid}','title')" title="Edit title">✏️</button>
+                                        </div>
+
+                                        <div class="cert-field-row" data-field="provider">
+                                            <p class="provider cert-field-display" style="margin-bottom:4px;">${escapeHtml(record.provider || '')}</p>
+                                            <button class="cert-pencil" onclick="lctEditField('${rid}','provider')" title="Edit provider">✏️</button>
+                                        </div>
+
+                                        <div class="cert-field-row" data-field="category">
+                                            <span class="cert-cat-display cert-field-display">${escapeHtml(record.category || '')}</span>
+                                            <button class="cert-pencil" onclick="lctEditField('${rid}','category')" title="Edit category">✏️</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="training-date-block">
+                                        <div class="cert-field-row cert-date-row" data-field="date">
+                                            <div class="training-date cert-field-display">${formatDate(record.date)}</div>
+                                            <button class="cert-pencil" onclick="lctEditField('${rid}','date')" title="Edit date">✏️</button>
+                                        </div>
+                                        ${monogramContent}
+                                    </div>
+                                </div>
+
+                                <div class="cert-field-row" style="margin-bottom:18px;" data-field="description">
+                                    ${descriptionHtml}
+                                    <button class="cert-pencil" onclick="lctEditField('${rid}','description')" title="Edit description">✏️</button>
+                                </div>
+
+                                <div class="cert-field-row cert-images-row" data-field="images">
+                                    <div class="cert-field-display" style="width:100%;">${galleryHtml}</div>
+                                    <button class="cert-pencil cert-pencil-block" onclick="lctEditField('${rid}','images')">✏️ Edit Images</button>
+                                </div>
+
+                                <div class="cert-action-bar">
+                                    <button class="btn btn-danger btn-small" onclick="deleteRecord('${rid}')">Delete</button>
+                                </div>
+                            </div>
+                        </div>`;
+                    overallIndex++;
+                    return card;
+                }).join('');
+                return heading + cards;
+            }).join('');
+        }
+
+        function lctEditField(recordId, field) {
+            const card = document.querySelector(`.lct-card[data-record-id="${recordId}"]`);
+            if (!card) return;
+            const record = allRecords.find(r => r.id === recordId);
+            if (!record) return;
+
+            if (field === 'images') {
+                openEditModal(recordId, true, true);
+                return;
+            }
+
+            const fieldRow = card.querySelector(`[data-field="${field}"]`);
+            if (!fieldRow || fieldRow.querySelector('.cert-inline-editor')) return;
+
+            const displayEl = fieldRow.querySelector('.cert-field-display');
+            const pencilBtn = fieldRow.querySelector('.cert-pencil');
+            if (!displayEl) return;
+
+            displayEl.style.display = 'none';
+            if (pencilBtn) pencilBtn.style.display = 'none';
+
+            let inputHtml;
+            if (field === 'title') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.title)}" maxlength="500">`;
+            } else if (field === 'provider') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.provider || '')}" maxlength="100" placeholder="Provider / Organisation">`;
+            } else if (field === 'date') {
+                inputHtml = `<input class="cert-inline-input" type="text" value="${escapeHtml(record.date || '')}" placeholder="YYYY or YYYY-MM-DD" maxlength="20">`;
+            } else if (field === 'category') {
+                const cats = getAllCategories();
+                const opts = cats.map(c => `<option value="${escapeHtml(c)}"${c === record.category ? ' selected' : ''}>${escapeHtml(c)}</option>`).join('');
+                inputHtml = `<select class="cert-inline-input">${opts}</select>`;
+            } else if (field === 'description') {
+                inputHtml = `<textarea class="cert-inline-input" rows="4" maxlength="2000" placeholder="Description of the lecture...">${escapeHtml(record.description || '')}</textarea>`;
+            } else {
+                displayEl.style.display = '';
+                if (pencilBtn) pencilBtn.style.display = '';
+                return;
+            }
+
+            const editor = document.createElement('div');
+            editor.className = 'cert-inline-editor';
+            editor.innerHTML = `
+                ${inputHtml}
+                <div class="cert-inline-actions">
+                    <button class="btn btn-primary btn-small" onclick="lctSaveField('${escapeHtml(recordId)}','${field}',this)">✓ Save</button>
+                    <button class="btn btn-secondary btn-small" onclick="lctCancelField('${escapeHtml(recordId)}','${field}')">✗ Cancel</button>
+                </div>`;
+            fieldRow.appendChild(editor);
+            editor.querySelector('.cert-inline-input')?.focus();
+        }
+
+        async function lctSaveField(recordId, field, btnEl) {
+            const card = document.querySelector(`.lct-card[data-record-id="${recordId}"]`);
+            if (!card) return;
+            const record = allRecords.find(r => r.id === recordId);
+            if (!record) return;
+
+            const fieldRow = card.querySelector(`[data-field="${field}"]`);
+            if (!fieldRow) return;
+
+            const input = fieldRow.querySelector('.cert-inline-input');
+            if (!input) return;
+
+            const newValue = input.tagName === 'TEXTAREA' ? input.value : input.value.trim();
+
+            const origText = btnEl.textContent;
+            btnEl.textContent = '…';
+            btnEl.disabled = true;
+
+            const snapshot = { ...record };
+            record[field] = newValue;
+
+            try {
+                await saveRecord(record);
+            } catch (err) {
+                Object.assign(record, snapshot);
+                alert('Save failed: ' + err.message);
+                btnEl.textContent = origText;
+                btnEl.disabled = false;
+                return;
+            }
+
+            await loadLectureRecords({ reload: false });
+        }
+
+        function lctCancelField(recordId, field) {
+            const card = document.querySelector(`.lct-card[data-record-id="${recordId}"]`);
+            if (!card) return;
+            const fieldRow = card.querySelector(`[data-field="${field}"]`);
+            if (!fieldRow) return;
+
+            const displayEl = fieldRow.querySelector('.cert-field-display');
+            const pencilBtn = fieldRow.querySelector('.cert-pencil');
+            const editor = fieldRow.querySelector('.cert-inline-editor');
+
+            if (editor) editor.remove();
+            if (displayEl) displayEl.style.display = '';
+            if (pencilBtn) pencilBtn.style.display = '';
+        }
+
+        let _editImagesOnly = false;
+
+        function openEditModal(recordId, imagesOnly = false, hideMonogram = false) {
             currentEditingId = recordId;
             const record = allRecords.find(r => r.id === recordId);
 
             if (record) {
+                _editImagesOnly = imagesOnly;
                 populateEditCategoryDropdown();
                 document.getElementById('editTitle').value = record.title;
                 document.getElementById('editCategory').value = record.category;
@@ -3274,12 +4132,36 @@
                 setImagePickerItems('edit', record.images || []);
                 setImagePickerItems('editMonogram', record.monogram ? [record.monogram] : []);
 
+                const metaSection = document.getElementById('editMetaSection');
+                const monogramSection = document.getElementById('editMonogramSection');
+                const form = document.getElementById('editForm');
+                const modalTitle = document.querySelector('#editModal h2');
+                if (imagesOnly) {
+                    metaSection.style.display = 'none';
+                    form.noValidate = true;
+                    modalTitle.textContent = hideMonogram ? 'Edit Images' : 'Edit Images & Monogram';
+                } else {
+                    metaSection.style.display = 'contents';
+                    form.noValidate = false;
+                    modalTitle.textContent = 'Edit Record';
+                }
+                monogramSection.style.display = hideMonogram ? 'none' : '';
+
                 document.getElementById('editModal').classList.add('show');
             }
         }
 
         function closeEditModal() {
             document.getElementById('editModal').classList.remove('show');
+            const metaSection = document.getElementById('editMetaSection');
+            if (metaSection) metaSection.style.display = 'contents';
+            const monogramSection = document.getElementById('editMonogramSection');
+            if (monogramSection) monogramSection.style.display = '';
+            const form = document.getElementById('editForm');
+            if (form) form.noValidate = false;
+            const modalTitle = document.querySelector('#editModal h2');
+            if (modalTitle) modalTitle.textContent = 'Edit Record';
+            _editImagesOnly = false;
             clearImagePicker('edit');
             clearImagePicker('editMonogram');
             currentEditingId = null;
@@ -3323,6 +4205,8 @@
             await loadAllRecords({ reload: true });
             await Promise.all([
                 loadCertificateRecords({ reload: false }),
+                loadAchievementRecords({ reload: false }),
+                loadLectureRecords({ reload: false }),
                 updateDashboard({ reload: false })
             ]);
             populateCategoryDropdown();
@@ -3342,6 +4226,8 @@
                 await Promise.all([
                     loadAllRecords({ reload: false }),
                     loadCertificateRecords({ reload: false }),
+                    loadAchievementRecords({ reload: false }),
+                    loadLectureRecords({ reload: false }),
                     updateDashboard({ reload: false })
                 ]);
             }
@@ -3357,6 +4243,7 @@
             document.getElementById('addAchievementForm').reset();
             hideNewAchievementCategoryPanel();
             clearImagePicker('achievement');
+            clearImagePicker('achievementMonogram');
         }
 
         function resetCertForm() {
@@ -3398,6 +4285,70 @@
                 closeEditModal();
             }
         });
+
+        // ── Inactivity auto-logout ──────────────────────────────────────────
+        const INACTIVITY_MS   = 30 * 60 * 1000;  // 30 minutes total
+        const WARNING_BEFORE  = 60 * 1000;       // show warning 60 s before logout
+        const WARNING_TICK_MS = 1000;
+
+        let inactivityTimer   = null;
+        let warningTimer      = null;
+        let countdownInterval = null;
+        let warningVisible    = false;
+
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            clearTimeout(warningTimer);
+            clearInterval(countdownInterval);
+            hideInactivityWarning();
+            scheduleInactivityTimers();
+        }
+
+        function scheduleInactivityTimers() {
+            // Show warning 60 s before the 5-minute mark
+            warningTimer = setTimeout(() => showInactivityWarning(), INACTIVITY_MS - WARNING_BEFORE);
+            // Auto-logout at exactly 5 minutes
+            inactivityTimer = setTimeout(() => {
+                hideInactivityWarning();
+                handleLogout();
+            }, INACTIVITY_MS);
+        }
+
+        function showInactivityWarning() {
+            warningVisible = true;
+            const toast = document.getElementById('inactivityWarning');
+            const msg   = document.getElementById('inactivityCountdown');
+            toast.style.display = 'block';
+            let remaining = Math.round(WARNING_BEFORE / 1000);
+            msg.textContent = `You will be signed out in ${remaining} seconds due to inactivity.`;
+            countdownInterval = setInterval(() => {
+                remaining--;
+                if (remaining <= 0) { clearInterval(countdownInterval); return; }
+                msg.textContent = `You will be signed out in ${remaining} seconds due to inactivity.`;
+            }, WARNING_TICK_MS);
+        }
+
+        function hideInactivityWarning() {
+            warningVisible = false;
+            const toast = document.getElementById('inactivityWarning');
+            if (toast) toast.style.display = 'none';
+            clearInterval(countdownInterval);
+        }
+
+        const INACTIVITY_EVENTS = ['mousemove', 'mousedown', 'keydown', 'input', 'wheel', 'touchstart', 'scroll', 'click'];
+
+        function startInactivityWatch() {
+            INACTIVITY_EVENTS.forEach(e => document.addEventListener(e, resetInactivityTimer, { passive: true }));
+            scheduleInactivityTimers();
+        }
+
+        function stopInactivityWatch() {
+            clearTimeout(inactivityTimer);
+            clearTimeout(warningTimer);
+            clearInterval(countdownInterval);
+            hideInactivityWarning();
+            INACTIVITY_EVENTS.forEach(e => document.removeEventListener(e, resetInactivityTimer));
+        }
     </script>
 </body>
 </html>

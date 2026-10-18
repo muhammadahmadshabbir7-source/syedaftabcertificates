@@ -414,6 +414,7 @@
             border: 1px solid rgba(15, 23, 42, 0.08);
             padding: 26px;
             box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+            position: relative;
         }
 
         .training-top {
@@ -422,6 +423,31 @@
             gap: 20px;
             align-items: flex-start;
             margin-bottom: 18px;
+        }
+
+        .certificate-highlight .training-top {
+            margin-bottom: 6px;
+        }
+
+        .training-top--course {
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .training-top--course h3 {
+            margin-bottom: 0;
+        }
+
+        /* Date-block floats out of flow so it doesn't stretch the title row */
+        .training-top--course .training-date-block {
+            position: absolute;
+            top: 40px;   /* sits below the title's first line */
+            right: 26px; /* matches card padding */
+        }
+
+        /* Prevent title text from running under the floating date-block */
+        .training-top--course > div:first-child {
+            padding-right: 110px;
         }
 
         .badge {
@@ -480,6 +506,7 @@
             border-left: 4px solid var(--teal);
             background: linear-gradient(90deg, rgba(15, 118, 110, 0.05) 0%, transparent 80%);
         }
+
 
         .training-top h3 {
             font-size: 1.2rem;
@@ -1150,10 +1177,14 @@
                 <div class="control-group">
                     <label for="typeFilter">Type filter</label>
                     <select id="typeFilter">
+<<<<<<< HEAD
                         <!-- <option value="">All Types</option> -->
                         <!-- <option value="Seminar">Lectures</option> -->
                         <option value="Certificate">Certificates</option>
                         <!-- <option value="Course">Courses/Trainings Completed</option> -->
+=======
+                        <option value="Certificate" selected>Certificates</option>
+>>>>>>> 04ee62912ed2d998161444cf6e7a65e44008ba82
                     </select>
                 </div>
                 <div class="button-group">
@@ -1481,7 +1512,12 @@
         let isLoadingMore = false;
 
         async function init() {
+            // This deployment is a dedicated certificates-only site: the type filter
+            // only offers "Certificates" and stays locked to it.
+            typeFilter.value = 'Certificate';
             await refreshTrainingData();
+            populateCategoryOptions();
+            filterAndRender();
             attachEventListeners();
             setupShowMoreToggle();
             setupLiveDataRefresh();
@@ -1587,7 +1623,11 @@
             if (!heading) return;
             const titles = {
                 Seminar: 'Lectures Delivered',
+<<<<<<< HEAD
                 Certificate: 'Letters/Certificates of Appreciation',
+=======
+                Certificate: 'Letters/Certificate of Appreciation',
+>>>>>>> 04ee62912ed2d998161444cf6e7a65e44008ba82
                 Achievement: 'Achievements',
                 Course: 'Courses/Trainings Completed'
             };
@@ -1617,11 +1657,12 @@
         }
 
         const CERTIFICATE_CATEGORY_ORDER = [
-            { rank: 1, match: ['minister'] },
-            { rank: 2, match: ['federal government'] },
-            { rank: 3, match: ['ambassador', 'high commission'] },
-            { rank: 4, match: ['caa', 'paa'] },
-            { rank: 5, match: ['airline'] }
+            { rank: 1, match: ['president', 'prime minister'] },
+            { rank: 2, match: ['minister'] },
+            { rank: 3, match: ['federal government'] },
+            { rank: 4, match: ['ambassador', 'high commission'] },
+            { rank: 5, match: ['caa', 'paa'] },
+            { rank: 6, match: ['airline'] }
         ];
 
         function getCertificateCategoryRank(category) {
@@ -1724,9 +1765,7 @@
                 ? '<span class="badge badge-achievement">Highlighted Achievement</span>'
                 : isCertificate
                     ? '<span class="badge badge-certificate">Certificate</span>'
-                    : isCourse
-                        ? '<span class="badge badge-course">Course / Training</span>'
-                        : '';
+                    : '';
             const certificateLine = (isCertificate && item.certificateNo)
                 ? `<div class="certificate-line">Certificate No: ${item.certificateNo}</div>`
                 : '';
@@ -1734,11 +1773,11 @@
             return `
                 <div class="timeline-marker"><span class="marker-dot"></span></div>
                 <div class="timeline-card${cardTypeClass}">
-                    <div class="training-top">
+                    <div class="training-top${isCourse ? ' training-top--course' : ''}">
                         <div>
                             ${typeBadge}
                             <h3>${index}. ${item.title}</h3>
-                            <p class="provider">${item.provider}</p>
+                            ${isCourse ? '' : `<p class="provider">${item.provider}</p>`}
                         </div>
                         <div class="training-date-block">
                             <div class="training-date">${formatDate(item.date)}</div>
@@ -1746,7 +1785,7 @@
                         </div>
                     </div>
                     ${certificateLine}
-                    ${(isCertificate) ? '' : `<p class="training-description">${item.description}</p>`}
+                    ${(isCertificate || isCourse) ? '' : `<p class="training-description">${item.description}</p>`}
                     <div class="gallery-grid">
                         ${item.images.map((src, idx) => `<div class="gallery-card"><img src="${src || placeholderImage()}" alt="${item.title} photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`).join('')}
                     </div>
