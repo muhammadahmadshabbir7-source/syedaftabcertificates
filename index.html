@@ -1776,7 +1776,7 @@
                     ${certificateLine}
                     ${(isCertificate || isCourse) ? '' : `<p class="training-description">${item.description}</p>`}
                     <div class="gallery-grid">
-                        ${item.images.map((src, idx) => `<div class="gallery-card"><img src="${src || placeholderImage()}" alt="${item.title} photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`).join('')}
+                        ${item.images.map((src, idx) => `<div class="gallery-card"><img src="${src || placeholderImage()}" alt="${item.title} photo ${idx + 1}" loading="lazy" decoding="async"></div>`).join('')}
                     </div>
                 </div>
             `;

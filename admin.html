@@ -3395,7 +3395,6 @@
                 ? `<div class="gallery-grid">${images.map((src, idx) => `
                     <div class="gallery-card">
                         <img src="${src || placeholderImage()}" alt="${escapeHtml(item.title)} photo ${idx + 1}" loading="lazy" decoding="async">
-                        <div class="gallery-pill">Photo ${idx + 1}</div>
                     </div>`).join('')}</div>`
                 : '';
 
@@ -3538,7 +3537,7 @@
                     const images = Array.isArray(record.images) ? record.images.filter(Boolean) : [];
                     const galleryHtml = images.length
                         ? `<div class="gallery-grid">${images.map((src, idx) =>
-                            `<div class="gallery-card"><img src="${escapeHtml(src)}" alt="Photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`
+                            `<div class="gallery-card"><img src="${escapeHtml(src)}" alt="Photo ${idx + 1}" loading="lazy" decoding="async"></div>`
                           ).join('')}</div>`
                         : '';
 
@@ -3745,7 +3744,7 @@
                     const images = Array.isArray(record.images) ? record.images.filter(Boolean) : [];
                     const galleryHtml = images.length
                         ? `<div class="gallery-grid">${images.map((src, idx) =>
-                            `<div class="gallery-card"><img src="${escapeHtml(src)}" alt="Photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`
+                            `<div class="gallery-card"><img src="${escapeHtml(src)}" alt="Photo ${idx + 1}" loading="lazy" decoding="async"></div>`
                           ).join('')}</div>`
                         : '';
                     const monogramContent = record.monogram
@@ -3949,7 +3948,7 @@
                     const images = Array.isArray(record.images) ? record.images.filter(Boolean) : [];
                     const galleryHtml = images.length
                         ? `<div class="gallery-grid">${images.map((src, idx) =>
-                            `<div class="gallery-card"><img src="${escapeHtml(src)}" alt="Photo ${idx + 1}" loading="lazy" decoding="async"><div class="gallery-pill">Photo ${idx + 1}</div></div>`
+                            `<div class="gallery-card"><img src="${escapeHtml(src)}" alt="Photo ${idx + 1}" loading="lazy" decoding="async"></div>`
                           ).join('')}</div>`
                         : '';
                     const monogramContent = record.monogram
